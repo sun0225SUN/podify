@@ -1,0 +1,4 @@
+[[redirects]]
+  from = "https://podcast.createwise.ai/*"
+  to = "https://shutiao.life/:splat"
+  force = true
