@@ -2,7 +2,12 @@
   "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
   "files": {
     "ignoreUnknown": false,
-    "ignore": ["src/components/ui/*.tsx", "node_modules", ".next"]
+    "ignore": [
+      "src/components/ui/*.tsx",
+      "node_modules",
+      ".next",
+      "tailwind.config.ts"
+    ]
   },
   "vcs": {
     "enabled": false,

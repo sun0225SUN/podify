@@ -1,0 +1,53 @@
+@import 'tailwindcss';
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --color-theme-50: oklch(0.97 0.014 254.604);
+  --color-theme-100: oklch(0.932 0.032 255.585);
+  --color-theme-200: oklch(0.882 0.059 254.128);
+  --color-theme-300: oklch(0.809 0.105 251.813);
+  --color-theme-400: oklch(0.707 0.165 254.624);
+  --color-theme-500: oklch(0.623 0.214 259.815);
+  --color-theme-600: oklch(0.546 0.245 262.881);
+  --color-theme-700: oklch(0.488 0.243 264.376);
+  --color-theme-800: oklch(0.424 0.199 265.638);
+  --color-theme-900: oklch(0.379 0.146 265.522);
+  --color-theme-950: oklch(0.282 0.091 267.935);
+
+  --color-background: #ffffff;
+  --color-foreground: #171717;
+}
+
+.dark {
+  --color-theme-50: oklch(0.282 0.091 267.935);
+  --color-theme-100: oklch(0.379 0.146 265.522);
+  --color-theme-200: oklch(0.424 0.199 265.638);
+  --color-theme-300: oklch(0.488 0.243 264.376);
+  --color-theme-400: oklch(0.546 0.245 262.881);
+  --color-theme-500: oklch(0.623 0.214 259.815);
+  --color-theme-600: oklch(0.707 0.165 254.624);
+  --color-theme-700: oklch(0.809 0.105 251.813);
+  --color-theme-800: oklch(0.882 0.059 254.128);
+  --color-theme-900: oklch(0.932 0.032 255.585);
+  --color-theme-950: oklch(0.97 0.014 254.604);
+
+  --color-background: #0a0a0a;
+  --color-foreground: #ededed;
+}
+
+@theme inline {
+  --color-theme-50: var(--color-theme-50);
+  --color-theme-100: var(--color-theme-100);
+  --color-theme-200: var(--color-theme-200);
+  --color-theme-300: var(--color-theme-300);
+  --color-theme-400: var(--color-theme-400);
+  --color-theme-500: var(--color-theme-500);
+  --color-theme-600: var(--color-theme-600);
+  --color-theme-700: var(--color-theme-700);
+  --color-theme-800: var(--color-theme-800);
+  --color-theme-900: var(--color-theme-900);
+  --color-theme-950: var(--color-theme-950);
+
+  --color-background: var(--color-background);
+  --color-foreground: var(--color-foreground);
+}
