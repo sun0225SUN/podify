@@ -6,8 +6,8 @@ export const Analytics = () => {
       {/* Umami Analytics */}
       <Script
         defer
-        src='https://umami.createwise.ai/script.js'
-        data-website-id='9f769fa7-a229-45f1-84ed-bbd671b4bcd1'
+        src='https://umami.guoqi.dev/script.js'
+        data-website-id='0fb9ee66-0aa7-4c78-acc2-7650ec3fbbe7'
       />
     </>
   )

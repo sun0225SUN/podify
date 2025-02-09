@@ -1,4 +1,4 @@
 [[redirects]]
-  from = "https://podcast.createwise.ai/*"
+  from = "https://podify.guoqi.dev/*"
   to = "https://shutiao.life/:splat"
   force = true
