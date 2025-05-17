@@ -1,8 +1,10 @@
-import '~/styles/globals.css'
-
 import type { Metadata } from 'next'
+import { NextIntlClientProvider } from 'next-intl'
+import { getLocale } from 'next-intl/server'
 import { Geist } from 'next/font/google'
 import { ThemeProvider } from '~/components/theme/provider'
+
+import '~/styles/globals.css'
 
 export const metadata: Metadata = {
   title: 'Create T3 App',
@@ -15,24 +17,27 @@ const geist = Geist({
   variable: '--font-geist-sans',
 })
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const locale = await getLocale()
   return (
     <html
-      lang='en'
+      lang={locale}
       suppressHydrationWarning
       className={`${geist.variable}`}
     >
       <body>
-        <ThemeProvider
-          attribute='class'
-          defaultTheme='system'
-          enableSystem
-          disableTransitionOnChange
-        >
-          {children}
-        </ThemeProvider>
+        <NextIntlClientProvider>
+          <ThemeProvider
+            attribute='class'
+            defaultTheme='system'
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+          </ThemeProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   )
