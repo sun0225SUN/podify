@@ -1,23 +1,15 @@
+import { TanStackDevtools } from '@tanstack/react-devtools'
+import type { QueryClient } from '@tanstack/react-query'
 import {
+  createRootRouteWithContext,
   HeadContent,
   Scripts,
-  createRootRouteWithContext,
 } from '@tanstack/react-router'
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
-import { TanStackDevtools } from '@tanstack/react-devtools'
-
-import Header from '../components/Header'
-
-import StoreDevtools from '../lib/demo-store-devtools'
-
-import TanStackQueryDevtools from '../integrations/tanstack-query/devtools'
-
-import appCss from '../styles.css?url'
-
-import type { QueryClient } from '@tanstack/react-query'
-
-import type { TRPCRouter } from '@/integrations/trpc/router'
 import type { TRPCOptionsProxy } from '@trpc/tanstack-react-query'
+import type { TRPCRouter } from '@/integrations/trpc/router'
+import TanStackQueryDevtools from '../integrations/tanstack-query/devtools'
+import appCss from '../styles.css?url'
 
 interface MyRouterContext {
   queryClient: QueryClient
@@ -52,17 +44,16 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang='en'>
       <head>
         <HeadContent />
         <script
           defer
-          src="https://umami.guoqi.dev/script.js"
-          data-website-id="f382c8db-e41d-4b65-8d4b-ffbcc5f86b93"
+          src='https://umami.guoqi.dev/script.js'
+          data-website-id='f382c8db-e41d-4b65-8d4b-ffbcc5f86b93'
         />
       </head>
       <body>
-        <Header />
         {children}
         <TanStackDevtools
           config={{
@@ -73,7 +64,6 @@ function RootDocument({ children }: { children: React.ReactNode }) {
               name: 'Tanstack Router',
               render: <TanStackRouterDevtoolsPanel />,
             },
-            StoreDevtools,
             TanStackQueryDevtools,
           ]}
         />
