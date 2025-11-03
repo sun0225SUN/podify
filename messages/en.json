@@ -1,0 +1,10 @@
+{
+  "common": {
+    "hello": "Hello",
+    "world": "World",
+    "home": "Home",
+    "toggleTheme": "Toggle theme",
+    "language": "Language",
+    "selectLanguage": "Select Language"
+  }
+}

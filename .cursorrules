@@ -1,0 +1,53 @@
+# Cursor Rules for Podify Project
+
+## Language
+- Always respond in English
+- Write all comments in code in English
+- Write documentation in English
+
+## Code Style
+- Use TypeScript strict mode
+- Follow the existing code style in the project
+- Use Biome for linting and formatting (see biome.json)
+- Prefer functional components with hooks
+- Use named exports over default exports when possible
+
+## Framework & Tools
+- Framework: TanStack Start (TanStack Router + React)
+- State Management: TanStack Query for server state
+- API: tRPC for type-safe APIs
+- Styling: Tailwind CSS v4
+- UI Components: Radix UI primitives with custom styling
+
+## Best Practices
+- Always use TypeScript types
+- Prefer server-side rendering (SSR) when possible
+- Use TanStack Router's file-based routing
+- Handle SSR properly (check for window/document availability)
+- Use proper error boundaries
+- Implement proper loading states
+- Follow accessibility best practices (ARIA labels, semantic HTML)
+
+## File Organization
+- Components: `src/components/`
+- Routes: `src/routes/` (file-based routing)
+- Utilities: `src/lib/`
+- Styles: `src/styles/`
+- Integrations: `src/integrations/`
+
+## Naming Conventions
+- Components: PascalCase (e.g., `ThemeProvider.tsx`)
+- Hooks: camelCase starting with "use" (e.g., `useTheme.ts`)
+- Utilities: camelCase (e.g., `utils.ts`)
+- Files: Match export name when possible
+
+## Dependencies
+- Avoid adding unnecessary dependencies
+- Prefer lightweight solutions
+- Check bundle size impact before adding new packages
+- Use existing patterns from the project
+
+## Git
+- Write meaningful commit messages
+- Follow conventional commit format when possible
+

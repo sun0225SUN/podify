@@ -4,10 +4,18 @@ import {
   createRootRouteWithContext,
   HeadContent,
   Scripts,
+  useRouteContext,
 } from '@tanstack/react-router'
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 import type { TRPCOptionsProxy } from '@trpc/tanstack-react-query'
+import { LanguageProvider } from '@/components/language/provider'
 import { ThemeProvider } from '@/components/theme/provider'
+import {
+  defaultLocale,
+  detectLocale,
+  isValidLocale,
+  type Locale,
+} from '@/i18n/config'
 import type { TRPCRouter } from '@/integrations/trpc/router'
 import appCss from '@/styles/globals.css?url'
 import '@/styles/view-transition.css'
@@ -15,11 +23,31 @@ import TanStackQueryDevtools from '@/integrations/tanstack-query/devtools'
 
 interface MyRouterContext {
   queryClient: QueryClient
-
   trpc: TRPCOptionsProxy<TRPCRouter>
+  detectedLocale?: string
 }
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({
+  beforeLoad: async (opts) => {
+    let acceptLanguage: string | null = null
+
+    const request = 'request' in opts ? opts.request : undefined
+
+    if (
+      request &&
+      typeof request === 'object' &&
+      'headers' in request &&
+      request.headers instanceof Headers
+    ) {
+      acceptLanguage = request.headers.get('accept-language')
+    }
+
+    const detectedLocale = detectLocale(acceptLanguage)
+
+    return {
+      detectedLocale,
+    }
+  },
   head: () => ({
     meta: [
       {
@@ -45,8 +73,14 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 })
 
 function RootDocument({ children }: { children: React.ReactNode }) {
+  const context = useRouteContext({ from: '__root__' })
+  const detectedLocaleRaw = (context?.detectedLocale as string) || defaultLocale
+  const detectedLocale: Locale = isValidLocale(detectedLocaleRaw)
+    ? detectedLocaleRaw
+    : defaultLocale
+
   return (
-    <html lang='en'>
+    <html lang={detectedLocale}>
       <head>
         <HeadContent />
         <script
@@ -76,12 +110,14 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         />
       </head>
       <body>
-        <ThemeProvider
-          defaultTheme='dark'
-          storageKey='vite-ui-theme'
-        >
-          {children}
-        </ThemeProvider>
+        <LanguageProvider language={detectedLocale}>
+          <ThemeProvider
+            defaultTheme='system'
+            storageKey='vite-ui-theme'
+          >
+            {children}
+          </ThemeProvider>
+        </LanguageProvider>
         <TanStackDevtools
           config={{
             position: 'bottom-right',

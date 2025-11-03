@@ -3,14 +3,13 @@
 import { Moon, Sun } from 'lucide-react'
 import { useTheme } from '@/components/theme/provider'
 import { cn } from '@/lib/utils'
+import type { Theme } from '@/stores/theme-store'
 
 interface ThemeToggleProps {
   className?: string
   size?: number
   strokeWidth?: number
 }
-
-type Theme = 'dark' | 'light' | 'system'
 
 export function ThemeToggle({ strokeWidth = 2, className }: ThemeToggleProps) {
   const { theme, setTheme } = useTheme()
@@ -39,7 +38,7 @@ export function ThemeToggle({ strokeWidth = 2, className }: ThemeToggleProps) {
     <button
       type='button'
       onClick={toggleTheme}
-      className={cn('cursor-pointer', className)}
+      className='cursor-pointer'
       aria-label='Toggle theme'
     >
       <Sun

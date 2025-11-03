@@ -1,6 +1,6 @@
-import { createContext, useContext, useEffect, useState } from 'react'
-
-type Theme = 'dark' | 'light' | 'system'
+import { useStore } from '@tanstack/react-store'
+import { useEffect } from 'react'
+import { getThemeStore, initThemeStore, type Theme } from '@/stores/theme-store'
 
 type ThemeProviderProps = {
   children: React.ReactNode
@@ -8,41 +8,15 @@ type ThemeProviderProps = {
   storageKey?: string
 }
 
-type ThemeProviderState = {
-  theme: Theme
-  setTheme: (theme: Theme) => void
-}
-
-const initialState: ThemeProviderState = {
-  theme: 'system',
-  setTheme: () => null,
-}
-
-const ThemeProviderContext = createContext<ThemeProviderState>(initialState)
-
 export function ThemeProvider({
   children,
   defaultTheme = 'system',
   storageKey = 'vite-ui-theme',
-  ...props
 }: ThemeProviderProps) {
-  // Initialize theme from localStorage synchronously on client, or use defaultTheme on server
-  const [theme, setTheme] = useState<Theme>(() => {
-    if (typeof window === 'undefined') {
-      return defaultTheme
-    }
-    try {
-      const stored = localStorage.getItem(storageKey) as Theme | null
-      if (stored && (stored === 'dark' || stored === 'light' || stored === 'system')) {
-        return stored
-      }
-    } catch {
-      // localStorage may not be available
-    }
-    return defaultTheme
-  })
+  const themeStore = initThemeStore(defaultTheme, storageKey)
 
-  // Apply theme class immediately when theme changes
+  const theme = useStore(themeStore, (state) => state.theme)
+
   useEffect(() => {
     const root = window.document.documentElement
 
@@ -55,8 +29,7 @@ export function ThemeProvider({
         : 'light'
 
       root.classList.add(systemTheme)
-      
-      // Listen for system theme changes
+
       const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
       const handleChange = () => {
         root.classList.remove('light', 'dark')
@@ -69,31 +42,31 @@ export function ThemeProvider({
     root.classList.add(theme)
   }, [theme])
 
-  const value = {
-    theme,
-    setTheme: (theme: Theme) => {
-      if (typeof window !== 'undefined') {
-        localStorage.setItem(storageKey, theme)
-      }
-      setTheme(theme)
-    },
-  }
-
-  return (
-    <ThemeProviderContext.Provider
-      {...props}
-      value={value}
-    >
-      {children}
-    </ThemeProviderContext.Provider>
-  )
+  return <>{children}</>
 }
 
 export const useTheme = () => {
-  const context = useContext(ThemeProviderContext)
+  const themeStore = getThemeStore()
+  const theme = useStore(themeStore, (state) => state.theme)
 
-  if (context === undefined)
-    throw new Error('useTheme must be used within a ThemeProvider')
+  const setTheme = (newTheme: Theme) => {
+    if (typeof window !== 'undefined') {
+      try {
+        const currentStorageKey = themeStore.state.storageKey
+        localStorage.setItem(currentStorageKey, newTheme)
+      } catch (error) {
+        console.error('Error setting theme:', error)
+      }
+    }
 
-  return context
+    themeStore.setState((state) => ({
+      ...state,
+      theme: newTheme,
+    }))
+  }
+
+  return {
+    theme,
+    setTheme,
+  }
 }

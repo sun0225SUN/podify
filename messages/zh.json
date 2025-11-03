@@ -1,0 +1,10 @@
+{
+  "common": {
+    "hello": "你好",
+    "world": "世界",
+    "home": "首页",
+    "toggleTheme": "切换主题",
+    "language": "语言",
+    "selectLanguage": "选择语言"
+  }
+}
