@@ -31,5 +31,6 @@
   },
   "editor.codeActionsOnSave": {
     "source.organizeImports.biome": "explicit"
-  }
+  },
+  "i18n-ally.localesPaths": ["messages", "src/i18n", "src/components/language"]
 }

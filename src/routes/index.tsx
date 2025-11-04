@@ -1,22 +1,17 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { useTranslation } from 'react-i18next'
-import { LanguageToggle } from '@/components/language/toggle'
-import { ThemeToggle } from '@/components/theme/toggle'
+import { Podcast } from '@/components/podcast'
+import { getPodcastInfo } from '@/utils/podcast'
 
-export const Route = createFileRoute('/')({ component: App })
+export const Route = createFileRoute('/')({
+  component: App,
+  loader: async () => {
+    const podcastInfo = await getPodcastInfo()
+    return { podcastInfo }
+  },
+})
 
 function App() {
-  const { t } = useTranslation()
+  const { podcastInfo } = Route.useLoaderData()
 
-  return (
-    <div className='flex h-screen flex-col items-center justify-center gap-10'>
-      <ThemeToggle />
-      <LanguageToggle />
-      <div className='text-center'>
-        <h1 className='font-bold text-4xl'>
-          {t('common.hello')} {t('common.world')}
-        </h1>
-      </div>
-    </div>
-  )
+  return <Podcast {...podcastInfo} />
 }

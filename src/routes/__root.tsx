@@ -80,7 +80,10 @@ function RootDocument({ children }: { children: React.ReactNode }) {
     : defaultLocale
 
   return (
-    <html lang={detectedLocale}>
+    <html
+      lang={detectedLocale}
+      suppressHydrationWarning
+    >
       <head>
         <HeadContent />
         <script
@@ -109,7 +112,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
           data-website-id='f382c8db-e41d-4b65-8d4b-ffbcc5f86b93'
         />
       </head>
-      <body>
+      <body suppressHydrationWarning>
         <LanguageProvider language={detectedLocale}>
           <ThemeProvider
             defaultTheme='system'
