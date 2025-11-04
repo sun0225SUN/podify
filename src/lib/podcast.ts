@@ -23,7 +23,7 @@ export const getPodcastInfo = createServerFn({ method: 'GET' }).handler(
       title: channel.title,
       description: channel.description,
       link: channel.link,
-      coverArt: image,
+      cover: image,
     }
   },
 )

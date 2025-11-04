@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { Podcast } from '@/components/podcast'
-import { getPodcastInfo } from '@/utils/podcast'
+import { getPodcastInfo } from '@/lib/podcast'
 
 export const Route = createFileRoute('/')({
   component: App,
@@ -13,5 +13,5 @@ export const Route = createFileRoute('/')({
 function App() {
   const { podcastInfo } = Route.useLoaderData()
 
-  return <Podcast {...podcastInfo} />
+  return <Podcast podcastInfo={podcastInfo} />
 }

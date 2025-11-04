@@ -1,13 +1,10 @@
-import { TanStackDevtools } from '@tanstack/react-devtools'
-import type { QueryClient } from '@tanstack/react-query'
 import {
   createRootRouteWithContext,
   HeadContent,
+  Link,
   Scripts,
   useRouteContext,
 } from '@tanstack/react-router'
-import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
-import type { TRPCOptionsProxy } from '@trpc/tanstack-react-query'
 import { LanguageProvider } from '@/components/language/provider'
 import { ThemeProvider } from '@/components/theme/provider'
 import {
@@ -16,14 +13,10 @@ import {
   isValidLocale,
   type Locale,
 } from '@/i18n/config'
-import type { TRPCRouter } from '@/integrations/trpc/router'
 import appCss from '@/styles/globals.css?url'
 import '@/styles/view-transition.css'
-import TanStackQueryDevtools from '@/integrations/tanstack-query/devtools'
 
 interface MyRouterContext {
-  queryClient: QueryClient
-  trpc: TRPCOptionsProxy<TRPCRouter>
   detectedLocale?: string
 }
 
@@ -69,8 +62,28 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
     ],
   }),
 
+  notFoundComponent: NotFound,
   shellComponent: RootDocument,
 })
+
+function NotFound() {
+  return (
+    <div className='flex min-h-screen flex-col items-center justify-center'>
+      <div className='text-center'>
+        <h1 className='mb-4 font-bold text-6xl'>404</h1>
+        <p className='mb-8 text-gray-600 text-xl dark:text-gray-400'>
+          Page not found
+        </p>
+        <Link
+          to='/'
+          className='inline-block rounded-lg bg-blue-600 px-6 py-3 text-white transition-colors hover:bg-blue-700'
+        >
+          Go back home
+        </Link>
+      </div>
+    </div>
+  )
+}
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   const context = useRouteContext({ from: '__root__' })
@@ -121,18 +134,6 @@ function RootDocument({ children }: { children: React.ReactNode }) {
             {children}
           </ThemeProvider>
         </LanguageProvider>
-        <TanStackDevtools
-          config={{
-            position: 'bottom-right',
-          }}
-          plugins={[
-            {
-              name: 'Tanstack Router',
-              render: <TanStackRouterDevtoolsPanel />,
-            },
-            TanStackQueryDevtools,
-          ]}
-        />
         <Scripts />
       </body>
     </html>

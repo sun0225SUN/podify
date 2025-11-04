@@ -1,0 +1,1 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/aadf48af-a5c9-431f-9c7f-19cd0b546d6d/deploy-status)](https://app.netlify.com/projects/podify-guoqi/deploys)
