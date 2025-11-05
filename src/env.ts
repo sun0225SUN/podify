@@ -14,6 +14,8 @@ export const env = createEnv({
 
   client: {
     VITE_PODCAST_RSS: z.url(),
+    VITE_UMAMI_SCRIPT: z.string().url().optional(),
+    VITE_UMAMI_WEBSITE_ID: z.string().optional(),
   },
 
   /**

@@ -1,10 +1,15 @@
-import { PodcastInfo } from '@/components/podcast/info'
-import type { PodcastInfoProps } from '@/types/podcast'
+import { Episodes } from '@/components/episodes'
+import { PodcastLayout } from '@/components/podcast/layout'
+import type { Episode } from '@/types/podcast'
 
-export function Podcast({ podcastInfo }: { podcastInfo: PodcastInfoProps }) {
+interface PodcastProps {
+  episodes: Episode[]
+}
+
+export function Podcast({ episodes }: PodcastProps) {
   return (
-    <div className='flex flex-col items-center gap-6'>
-      <PodcastInfo podcastInfo={podcastInfo} />
-    </div>
+    <PodcastLayout>
+      <Episodes episodes={episodes} />
+    </PodcastLayout>
   )
 }

@@ -1,17 +1,17 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { Podcast } from '@/components/podcast'
-import { getPodcastInfo } from '@/lib/podcast'
+import { getEpisodes } from '@/lib/podcast'
 
 export const Route = createFileRoute('/')({
   component: App,
   loader: async () => {
-    const podcastInfo = await getPodcastInfo()
-    return { podcastInfo }
+    const episodes = await getEpisodes()
+    return { episodes }
   },
 })
 
 function App() {
-  const { podcastInfo } = Route.useLoaderData()
+  const { episodes } = Route.useLoaderData()
 
-  return <Podcast podcastInfo={podcastInfo} />
+  return <Podcast episodes={episodes} />
 }

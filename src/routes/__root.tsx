@@ -7,6 +7,7 @@ import {
 } from '@tanstack/react-router'
 import { LanguageProvider } from '@/components/language/provider'
 import { ThemeProvider } from '@/components/theme/provider'
+import { env } from '@/env'
 import {
   defaultLocale,
   detectLocale,
@@ -119,11 +120,13 @@ function RootDocument({ children }: { children: React.ReactNode }) {
             `,
           }}
         />
-        <script
-          defer
-          src='https://umami.guoqi.dev/script.js'
-          data-website-id='f382c8db-e41d-4b65-8d4b-ffbcc5f86b93'
-        />
+        {env.VITE_UMAMI_SCRIPT && env.VITE_UMAMI_WEBSITE_ID && (
+          <script
+            defer
+            src={env.VITE_UMAMI_SCRIPT}
+            data-website-id={env.VITE_UMAMI_WEBSITE_ID}
+          />
+        )}
       </head>
       <body suppressHydrationWarning>
         <LanguageProvider language={detectedLocale}>
