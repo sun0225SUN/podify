@@ -2,7 +2,7 @@ export interface Podcast {
   base: PodcastBase
   hosts: HostProps[]
   about: string
-  platforms: PlatformProps[]
+  platforms?: PlatformProps[]
 }
 
 export interface Episode {
@@ -23,6 +23,7 @@ export interface HostProps {
 }
 
 export interface PlatformProps {
+  id: string
   name: string
   link: string
 }

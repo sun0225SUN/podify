@@ -14,19 +14,28 @@ export const podcast: Podcast = {
       link: 'https://guoqi.dev',
     },
   ],
-  about: '整点薯条吧，计划两周一更，欢迎大家收听。（todo，完善）',
+  about:
+    'In this show, Eric and Wes dig deep to get to the facts with guests who have been labeled villains by a society quick to judge, without actually getting the full story. Tune in every Thursday to get to the truth with another misunderstood outcast as they share the missing context in their tragic tale.',
   platforms: [
     {
-      name: 'Apple Podcasts',
-      link: 'https://podcasts.apple.com',
+      id: 'xyz',
+      name: '小宇宙',
+      link: 'https://www.xiaoyuzhoufm.com',
     },
     {
+      id: 'spotify',
       name: 'Spotify',
       link: 'https://open.spotify.com',
     },
     {
+      id: 'youtube',
       name: 'YouTube',
       link: 'https://www.youtube.com',
+    },
+    {
+      id: 'apple',
+      name: 'Apple Podcasts',
+      link: 'https://podcasts.apple.com',
     },
   ],
 }
