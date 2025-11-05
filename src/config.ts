@@ -1,4 +1,5 @@
 import type { Podcast } from '@/types/podcast'
+import type { ThemeColor } from '@/types/theme'
 
 export const podcast: Podcast = {
   base: {
@@ -29,3 +30,5 @@ export const podcast: Podcast = {
     },
   ],
 }
+
+export const themeColor: ThemeColor = 'blue'

@@ -12,7 +12,7 @@ export function PodcastLayout({ children }: PodcastLayoutProps) {
         <PodcastAside />
         <PodcastInfo />
       </section>
-      <div className='ml-120'>{children}</div>
+      <div className='ml-120 flex-1'>{children}</div>
     </div>
   )
 }
