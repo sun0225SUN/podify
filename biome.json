@@ -14,6 +14,7 @@
       "**/vite.config.js",
       "!**/src/routeTree.gen.ts",
       "!**/src/styles.css",
+      "!**/src/styles/player.css",
       "!src/components/ui"
     ]
   },

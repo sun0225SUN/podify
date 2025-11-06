@@ -6,6 +6,7 @@ import {
   useRouteContext,
 } from '@tanstack/react-router'
 import { LanguageProvider } from '@/components/language/provider'
+import { Player } from '@/components/player'
 import { ThemeProvider } from '@/components/theme/provider'
 import { site } from '@/config'
 import { env } from '@/env'
@@ -17,6 +18,9 @@ import {
 } from '@/i18n/config'
 import appCss from '@/styles/globals.css?url'
 import '@/styles/view-transition.css'
+import '@vidstack/react/player/styles/base.css'
+import '@vidstack/react/player/styles/default/theme.css'
+import '@vidstack/react/player/styles/default/layouts/audio.css'
 
 interface MyRouterContext {
   detectedLocale?: string
@@ -78,6 +82,7 @@ function NotFound() {
         </p>
         <Link
           to='/'
+          search={{ page: 1 }}
           className='inline-block rounded-lg bg-theme px-6 py-3 text-white transition-colors hover:bg-theme-hover'
         >
           Go back home
@@ -137,6 +142,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
             storageKey='vite-ui-theme'
           >
             {children}
+            <Player />
           </ThemeProvider>
         </LanguageProvider>
         <Scripts />

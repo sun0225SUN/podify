@@ -14,6 +14,7 @@ import {
 import { site } from '@/config'
 import { cn } from '@/lib/utils'
 import { getPageStore } from '@/stores/page-store'
+import { setCurrentEpisode } from '@/stores/player-store'
 import type { Episode } from '@/types/podcast'
 
 interface EpisodesProps {
@@ -99,14 +100,16 @@ export function Episodes({ episodes, currentPage }: EpisodesProps) {
                   </div>
                 )}
                 <div className='mt-2 flex items-center gap-4 text-sm'>
-                  <Link
-                    to='/episodes/$episodeId'
-                    params={{ episodeId: episode.id }}
+                  <button
+                    type='button'
+                    onClick={() => {
+                      setCurrentEpisode(episode)
+                    }}
                     className='flex items-center gap-2 font-medium text-theme hover:text-theme-hover'
                   >
                     <span>▶</span>
                     <span>Listen</span>
-                  </Link>
+                  </button>
                   <span className='text-muted-foreground'>/</span>
                   <Link
                     to='/episodes/$episodeId'

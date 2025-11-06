@@ -1,6 +1,7 @@
 import type { Site } from '@/types/app'
 import type { Podcast } from '@/types/podcast'
 
+// if empty, use RSS information
 export const podcast: Podcast = {
   base: {
     title: '整点薯条吧🍟',

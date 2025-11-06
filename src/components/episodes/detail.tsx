@@ -2,13 +2,19 @@ import '@/styles/episode.css'
 
 import { Link } from '@tanstack/react-router'
 import { useStore } from '@tanstack/react-store'
-import { ChevronLeft, Play } from 'lucide-react'
+import { ChevronLeft, Pause, Play } from 'lucide-react'
 import { useEffect } from 'react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { Waveform } from '@/components/common/waveform'
 import { cn } from '@/lib/utils'
 import { getPageStore } from '@/stores/page-store'
+import {
+  getPlayerStore,
+  pause,
+  play,
+  setCurrentEpisode,
+} from '@/stores/player-store'
 import type { Episode } from '@/types/podcast'
 
 interface EpisodeDetailProps {
@@ -19,10 +25,26 @@ export function EpisodeDetail({ episode }: EpisodeDetailProps) {
   const publishedDate = new Date(episode.published)
   const pageStore = getPageStore()
   const currentPage = useStore(pageStore, (state) => state.currentPage)
+  const playerStore = getPlayerStore()
+  const currentEpisode = useStore(playerStore, (state) => state.currentEpisode)
+  const isPlaying = useStore(playerStore, (state) => state.isPlaying)
+
+  const isCurrentEpisodePlaying = currentEpisode?.id === episode.id && isPlaying
 
   useEffect(() => {
     window.scrollTo({ top: 0 })
   }, [])
+
+  const handlePlayPause = () => {
+    if (isCurrentEpisodePlaying) {
+      pause()
+    } else if (currentEpisode?.id === episode.id) {
+      play()
+    } else {
+      setCurrentEpisode(episode)
+      play()
+    }
+  }
 
   return (
     <section className='flex w-full flex-1 flex-col'>
@@ -45,6 +67,7 @@ export function EpisodeDetail({ episode }: EpisodeDetailProps) {
         <div className='flex items-center gap-6'>
           <button
             type='button'
+            onClick={handlePlayPause}
             className={cn(
               'group mt-2 flex h-18 w-18 flex-shrink-0 items-center justify-center',
               'rounded-full bg-theme',
@@ -52,9 +75,15 @@ export function EpisodeDetail({ episode }: EpisodeDetailProps) {
               'transition-all hover:scale-105 hover:bg-theme-hover hover:shadow-theme/30 hover:shadow-xl',
               'focus:outline-none focus:ring-2 focus:ring-theme focus:ring-offset-2',
             )}
-            aria-label='Play episode'
+            aria-label={
+              isCurrentEpisodePlaying ? 'Pause episode' : 'Play episode'
+            }
           >
-            <Play className='h-8 w-8 fill-white text-white' />
+            {isCurrentEpisodePlaying ? (
+              <Pause className='h-8 w-8 fill-white text-white' />
+            ) : (
+              <Play className='h-8 w-8 fill-white text-white' />
+            )}
           </button>
 
           <div className='flex flex-col'>
