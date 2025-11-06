@@ -8,7 +8,7 @@ interface PodcastLayoutProps {
 export function PodcastLayout({ children }: PodcastLayoutProps) {
   return (
     <div className='flex'>
-      <section className='fixed inset-0 left-0 flex w-120 overflow-y-auto'>
+      <section className='fixed inset-y-0 left-0 flex w-120'>
         <PodcastAside />
         <PodcastInfo />
       </section>

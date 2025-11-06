@@ -15,7 +15,9 @@ export function Waveform(props: React.SVGProps<SVGSVGElement>) {
     const envelope = 1 - (Math.abs(progress - 0.5) * 2) ** 1.5
     const wave = Math.sin(progress * Math.PI * 6 + Math.PI / 4) * 0.3 + 0.7
     const height = envelope * wave
-    return bars.minHeight + height * (bars.maxHeight - bars.minHeight)
+    const calculatedHeight =
+      bars.minHeight + height * (bars.maxHeight - bars.minHeight)
+    return Math.round(calculatedHeight * 10000) / 10000
   })
 
   return (

@@ -32,8 +32,16 @@ const platformIcons: Record<string, PlatformConfig> = {
 
 export function PodcastInfo() {
   return (
-    <div className={cn('flex flex-col gap-12 p-12', 'border-border border-x')}>
-      <Link to='/'>
+    <div
+      className={cn(
+        'flex h-full flex-col gap-12 overflow-y-auto p-12',
+        'border-border border-x',
+      )}
+    >
+      <Link
+        to='/'
+        search={{ page: 1 }}
+      >
         <img
           className='rounded-2xl'
           src={podcast.base.cover}
@@ -46,7 +54,12 @@ export function PodcastInfo() {
 
       <div className='flex flex-col gap-3 text-left'>
         <p className='font-bold text-xl'>
-          <Link to='/'>{podcast.base.title}</Link>
+          <Link
+            to='/'
+            search={{ page: 1 }}
+          >
+            {podcast.base.title}
+          </Link>
         </p>
         <p className='font-medium text-lg'>{podcast.base.description}</p>
       </div>

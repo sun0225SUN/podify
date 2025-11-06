@@ -1,6 +1,6 @@
 import { createServerFn } from '@tanstack/react-start'
 import { XMLParser } from 'fast-xml-parser'
-import { convert } from 'html-to-text'
+import TurndownService from 'turndown'
 import { env } from '@/env'
 import type { Episode } from '@/types/podcast'
 
@@ -31,6 +31,11 @@ export const getEpisodes = createServerFn({ method: 'GET' }).handler(
       if (!Array.isArray(items)) {
         items = [items]
       }
+
+      const turndownService = new TurndownService({
+        headingStyle: 'atx',
+        codeBlockStyle: 'fenced',
+      })
 
       const episodes: Episode[] = items.map(
         (item: {
@@ -64,16 +69,10 @@ export const getEpisodes = createServerFn({ method: 'GET' }).handler(
               : []
 
           const descriptionText = item.description
-            ? convert(item.description, {
-                wordwrap: false,
-                preserveNewlines: false,
-              })
+            ? turndownService.turndown(item.description)
             : ''
           const contentText = item['content:encoded']
-            ? convert(item['content:encoded'], {
-                wordwrap: false,
-                preserveNewlines: false,
-              })
+            ? turndownService.turndown(item['content:encoded'])
             : undefined
 
           return {

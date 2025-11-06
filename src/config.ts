@@ -1,5 +1,5 @@
+import type { Site } from '@/types/app'
 import type { Podcast } from '@/types/podcast'
-import type { ThemeColor } from '@/types/theme'
 
 export const podcast: Podcast = {
   base: {
@@ -40,4 +40,7 @@ export const podcast: Podcast = {
   ],
 }
 
-export const themeColor: ThemeColor = 'blue'
+export const site: Site = {
+  themeColor: 'blue', // blue, pink, purple, green, yellow, orange, red
+  pageSize: 10,
+}

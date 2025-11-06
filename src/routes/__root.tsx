@@ -7,7 +7,7 @@ import {
 } from '@tanstack/react-router'
 import { LanguageProvider } from '@/components/language/provider'
 import { ThemeProvider } from '@/components/theme/provider'
-import { themeColor } from '@/config'
+import { site } from '@/config'
 import { env } from '@/env'
 import {
   defaultLocale,
@@ -97,7 +97,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
   return (
     <html
       lang={detectedLocale}
-      className={`theme-${themeColor}`}
+      className={`theme-${site.themeColor}`}
       suppressHydrationWarning
     >
       <head>
