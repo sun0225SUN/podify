@@ -1,10 +1,15 @@
 import { Link } from '@tanstack/react-router'
+import { useStore } from '@tanstack/react-store'
 import { Podcast, Youtube } from 'lucide-react'
 import type { ComponentType, SVGProps } from 'react'
+import { useState } from 'react'
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 import { TinyWaveFormIcon } from '@/components/common/waveform-icon'
 import { SpotifyIcon, XYZIcon } from '@/components/icons'
-import { podcast } from '@/config'
+import { podcast, site } from '@/config'
 import { cn } from '@/lib/utils'
+import { getPodcastStore } from '@/stores/podcast-store'
 
 type PlatformConfig = {
   icon: ComponentType<SVGProps<SVGSVGElement>>
@@ -31,6 +36,20 @@ const platformIcons: Record<string, PlatformConfig> = {
 }
 
 export function PodcastInfo() {
+  const podcastStore = getPodcastStore()
+  const podcastInfo = useStore(podcastStore, (state) => state.podcastInfo)
+  const [isExpanded, setIsExpanded] = useState(false)
+
+  if (!podcastInfo) {
+    return null
+  }
+
+  const { title, description, cover } = podcastInfo
+  const shouldTruncate = description.length > site.defaultDescriptionLength
+  const displayDescription = isExpanded
+    ? description
+    : `${description.slice(0, site.defaultDescriptionLength)}...`
+
   return (
     <div
       className={cn(
@@ -44,7 +63,7 @@ export function PodcastInfo() {
       >
         <img
           className='rounded-2xl'
-          src={podcast.base.cover}
+          src={cover}
           referrerPolicy='no-referrer'
           loading='lazy'
           alt='cover'
@@ -52,16 +71,25 @@ export function PodcastInfo() {
         />
       </Link>
 
-      <div className='flex flex-col gap-3 text-left'>
-        <p className='font-bold text-xl'>
-          <Link
-            to='/'
-            search={{ page: 1 }}
-          >
-            {podcast.base.title}
-          </Link>
-        </p>
-        <p className='font-medium text-lg'>{podcast.base.description}</p>
+      <div className='text-left font-bold text-xl'>
+        <ReactMarkdown
+          remarkPlugins={[remarkGfm]}
+          components={{
+            p: ({ children }) => <>{children}</>,
+            a: ({ href, children }) => (
+              <a
+                href={href}
+                target='_blank'
+                rel='noopener noreferrer'
+                className='font-medium text-theme underline transition-colors hover:text-theme-hover'
+              >
+                {children}
+              </a>
+            ),
+          }}
+        >
+          {title}
+        </ReactMarkdown>
       </div>
 
       <div className='flex flex-col gap-10'>
@@ -73,7 +101,37 @@ export function PodcastInfo() {
             />
             <span>About</span>
           </div>
-          <p>{podcast.about}</p>
+          <div className='flex flex-col gap-2'>
+            <ReactMarkdown
+              remarkPlugins={[remarkGfm]}
+              components={{
+                p: ({ children }) => (
+                  <p className='leading-relaxed'>{children}</p>
+                ),
+                a: ({ href, children }) => (
+                  <a
+                    href={href}
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    className='font-medium text-theme underline transition-colors hover:text-theme-hover'
+                  >
+                    {children}
+                  </a>
+                ),
+              }}
+            >
+              {displayDescription}
+            </ReactMarkdown>
+            {shouldTruncate && (
+              <button
+                type='button'
+                onClick={() => setIsExpanded(!isExpanded)}
+                className='self-start font-medium text-theme transition-colors hover:text-theme-hover'
+              >
+                {isExpanded ? 'Show less' : 'Show more'}
+              </button>
+            )}
+          </div>
         </section>
 
         {podcast.platforms && podcast.platforms.length > 0 && (

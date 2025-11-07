@@ -1,13 +1,17 @@
 import type { Site } from '@/types/app'
 import type { Podcast } from '@/types/podcast'
 
-// if empty, use RSS information
+/**
+ * Podcast configuration.
+ * If base fields (title, description, link, cover) are empty strings,
+ * they will be automatically filled from the RSS feed.
+ */
 export const podcast: Podcast = {
   base: {
-    title: '整点薯条吧🍟',
-    description: '我们要飞向何方？我想去码头整点薯条～',
+    title: '',
+    description: '',
     link: 'https://shutiao.life',
-    cover: 'https://files.guoqi.dev/podcast_cover.png',
+    cover: '',
   },
   hosts: [
     {
@@ -15,8 +19,6 @@ export const podcast: Podcast = {
       link: 'https://guoqi.dev',
     },
   ],
-  about:
-    'In this show, Eric and Wes dig deep to get to the facts with guests who have been labeled villains by a society quick to judge, without actually getting the full story. Tune in every Thursday to get to the truth with another misunderstood outcast as they share the missing context in their tragic tale.',
   platforms: [
     {
       id: 'xyz',
@@ -44,4 +46,5 @@ export const podcast: Podcast = {
 export const site: Site = {
   themeColor: 'blue', // blue, pink, purple, green, yellow, orange, red
   pageSize: 10,
+  defaultDescriptionLength: 150,
 }

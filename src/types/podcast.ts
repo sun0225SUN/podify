@@ -1,7 +1,6 @@
 export interface Podcast {
   base: PodcastBase
   hosts: HostProps[]
-  about: string
   platforms?: PlatformProps[]
 }
 
@@ -29,6 +28,20 @@ export interface PlatformProps {
 }
 
 export interface PodcastBase {
+  title: string | null
+  description: string | null
+  link: string | null
+  cover: string | null
+}
+
+export interface PodcastRSSInfo {
+  title: string
+  description: string
+  link: string
+  cover: string
+}
+
+export interface PodcastRSSInfo {
   title: string
   description: string
   link: string

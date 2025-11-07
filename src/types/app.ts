@@ -1,6 +1,7 @@
 export interface Site {
   themeColor: ThemeColor
   pageSize: number
+  defaultDescriptionLength: number
 }
 
 export type ThemeColor =
