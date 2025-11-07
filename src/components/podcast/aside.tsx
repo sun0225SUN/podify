@@ -1,4 +1,5 @@
 import { Link } from '@tanstack/react-router'
+import { Github } from 'lucide-react'
 import { Fragment } from 'react'
 import { ThemeToggle } from '@/components/theme/toggle'
 import { podcast } from '@/config'
@@ -30,7 +31,17 @@ export function PodcastAside() {
           ))}
         </span>
       </section>
-      <ThemeToggle />
+      <section className='flex flex-col items-center gap-5'>
+        <a
+          href='https://github.com/sun0225SUN/podify'
+          target='_blank'
+          className='cursor-pointer'
+          rel='noopener'
+        >
+          <Github className='size-6' />
+        </a>
+        <ThemeToggle />
+      </section>
     </aside>
   )
 }
