@@ -15,7 +15,10 @@ export function PlayerLayoutMobile() {
 
   return (
     <Controls.Root
-      className={cn('flex md:hidden w-full flex-col gap-3 px-4 py-3', styles.controls)}
+      className={cn(
+        'flex w-full flex-col gap-3 px-4 py-3 md:hidden',
+        styles.controls,
+      )}
     >
       {currentEpisode && (
         <div className='line-clamp-1 overflow-hidden text-center font-medium text-sm'>

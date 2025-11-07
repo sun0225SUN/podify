@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Waveform } from '@/components/common/waveform'
 import { EpisodeItem } from '@/components/episodes/episode-item'
 import { EpisodesPagination } from '@/components/episodes/pagination'
@@ -32,6 +33,7 @@ export function Episodes({ episodes, currentPage }: EpisodesProps) {
 }
 
 function EpisodesDesktop({ episodes, currentPage }: EpisodesProps) {
+  const { t } = useTranslation()
   const pageSize = site.pageSize
   const totalPages = Math.ceil(episodes.length / pageSize)
   const startIndex = (currentPage - 1) * pageSize
@@ -42,13 +44,13 @@ function EpisodesDesktop({ episodes, currentPage }: EpisodesProps) {
       <div className='sticky top-0 z-10 border-border border-b bg-background'>
         <Waveform className='h-24 w-full' />
         <h1 className='absolute inset-0 top-10 px-10 font-bold text-2xl lg:px-20'>
-          Episodes
+          {t('episodes.title')}
         </h1>
       </div>
 
       {episodes.length === 0 ? (
         <p className='px-10 text-muted-foreground lg:px-20'>
-          No episodes available.
+          {t('episodes.noEpisodes')}
         </p>
       ) : (
         <>
@@ -74,6 +76,7 @@ function EpisodesDesktop({ episodes, currentPage }: EpisodesProps) {
 }
 
 function EpisodesMobile({ episodes, currentPage }: EpisodesProps) {
+  const { t } = useTranslation()
   const pageSize = site.pageSize
   const totalPages = Math.ceil(episodes.length / pageSize)
   const startIndex = (currentPage - 1) * pageSize
@@ -83,7 +86,7 @@ function EpisodesMobile({ episodes, currentPage }: EpisodesProps) {
     <div className='flex w-full flex-col md:hidden'>
       {episodes.length === 0 ? (
         <p className='px-4 py-8 text-muted-foreground'>
-          No episodes available.
+          {t('episodes.noEpisodes')}
         </p>
       ) : (
         <>

@@ -5,8 +5,10 @@ import {
   VolumeSlider,
 } from '@vidstack/react'
 import { Volume2, VolumeIcon, VolumeOff } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
 export function Mute() {
+  const { t } = useTranslation()
   const volume = useMediaState('volume')
   const isMuted = useMediaState('muted')
 
@@ -24,7 +26,7 @@ export function Mute() {
         </MuteButton>
       </Tooltip.Trigger>
       <Tooltip.Content className='fade-out slide-out-to-bottom-2 data-[visible]:fade-in data-[visible]:slide-in-from-bottom-4 z-10 parent-data-[open]:hidden animate-out rounded-sm bg-black/90 px-2 py-0.5 font-medium text-sm text-white data-[visible]:animate-in'>
-        {isMuted ? 'Unmute' : 'Mute'}
+        {isMuted ? t('player.unmute') : t('player.mute')}
       </Tooltip.Content>
     </Tooltip.Root>
   )

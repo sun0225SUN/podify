@@ -1,5 +1,6 @@
 import { Link } from '@tanstack/react-router'
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import {
   Pagination,
   PaginationContent,
@@ -22,6 +23,8 @@ export function EpisodesPagination({
   totalPages,
   paddingClassName,
 }: EpisodesPaginationProps) {
+  const { t } = useTranslation()
+
   if (totalPages <= 1) return null
 
   return (
@@ -41,7 +44,9 @@ export function EpisodesPagination({
                 disabled={currentPage === 1}
               >
                 <ChevronLeftIcon />
-                <span className='hidden sm:block'>Previous</span>
+                <span className='hidden sm:block'>
+                  {t('pagination.previous')}
+                </span>
               </Link>
             </PaginationPrevious>
           </PaginationItem>
@@ -100,7 +105,7 @@ export function EpisodesPagination({
                 search={{ page: currentPage + 1 }}
                 disabled={currentPage === totalPages}
               >
-                <span className='hidden sm:block'>Next</span>
+                <span className='hidden sm:block'>{t('pagination.next')}</span>
                 <ChevronRightIcon />
               </Link>
             </PaginationNext>

@@ -3,6 +3,7 @@ import { useStore } from '@tanstack/react-store'
 import { Podcast, Youtube } from 'lucide-react'
 import type { ComponentType, SVGProps } from 'react'
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { Waveform } from '@/components/common/waveform'
@@ -39,6 +40,7 @@ export function PodcastInfo() {
 }
 
 function PodcastInfoDesktop({ podcastInfo }: PodcastInfoContentProps) {
+  const { t } = useTranslation()
   const [isExpanded, setIsExpanded] = useState(false)
   const { title, description, cover } = podcastInfo
   const shouldTruncate = description.length > site.defaultDescriptionLength
@@ -49,13 +51,7 @@ function PodcastInfoDesktop({ podcastInfo }: PodcastInfoContentProps) {
       : description
 
   return (
-    <div
-      className={cn(
-        'hidden md:flex',
-        'h-full flex-col gap-12 p-12',
-        'border-border border-x',
-      )}
-    >
+    <div className={cn('hidden md:flex', 'h-full flex-col gap-12 p-12')}>
       <Link
         to='/'
         search={{ page: 1 }}
@@ -81,7 +77,7 @@ function PodcastInfoDesktop({ podcastInfo }: PodcastInfoContentProps) {
               colors={['fill-violet-300', 'fill-pink-300']}
               className='h-2.5 w-2.5'
             />
-            <span>About</span>
+            <span>{t('podcastInfo.about')}</span>
           </div>
           <div className='flex flex-col gap-2'>
             <ReactMarkdown
@@ -110,7 +106,9 @@ function PodcastInfoDesktop({ podcastInfo }: PodcastInfoContentProps) {
                 onClick={() => setIsExpanded(!isExpanded)}
                 className='cursor-pointer self-start font-medium text-theme transition-colors hover:text-theme-hover'
               >
-                {isExpanded ? 'Show less' : 'Show more'}
+                {isExpanded
+                  ? t('podcastInfo.showLess')
+                  : t('podcastInfo.showMore')}
               </button>
             )}
           </div>
@@ -123,7 +121,7 @@ function PodcastInfoDesktop({ podcastInfo }: PodcastInfoContentProps) {
                 colors={['fill-indigo-300', 'fill-blue-300']}
                 className='h-2.5 w-2.5'
               />
-              <span>Listen</span>
+              <span>{t('podcastInfo.listen')}</span>
             </div>
 
             <div className='flex flex-col gap-6'>

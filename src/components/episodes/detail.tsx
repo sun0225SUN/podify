@@ -4,6 +4,7 @@ import { Link } from '@tanstack/react-router'
 import { useStore } from '@tanstack/react-store'
 import { ChevronLeft, Pause, Play } from 'lucide-react'
 import { useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import ReactMarkdown, { type Components } from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { Waveform } from '@/components/common/waveform'
@@ -56,6 +57,7 @@ export function EpisodeDetail({ episode }: EpisodeDetailProps) {
 }
 
 function EpisodeDetailDesktop({ episode }: EpisodeDetailProps) {
+  const { t, i18n } = useTranslation()
   const publishedDate = new Date(episode.published)
   const pageStore = getPageStore()
   const currentPage = useStore(pageStore, (state) => state.currentPage)
@@ -88,7 +90,7 @@ function EpisodeDetailDesktop({ episode }: EpisodeDetailProps) {
           )}
         >
           <ChevronLeft className='size-4' />
-          <span className='font-bold'>Back</span>
+          <span className='font-bold'>{t('episodes.back')}</span>
         </Link>
       </div>
 
@@ -105,7 +107,9 @@ function EpisodeDetailDesktop({ episode }: EpisodeDetailProps) {
               'cursor-pointer focus:outline-none focus:ring-2 focus:ring-theme focus:ring-offset-2',
             )}
             aria-label={
-              isCurrentEpisodePlaying ? 'Pause episode' : 'Play episode'
+              isCurrentEpisodePlaying
+                ? t('episodes.pauseEpisode')
+                : t('episodes.playEpisode')
             }
           >
             {isCurrentEpisodePlaying ? (
@@ -120,11 +124,14 @@ function EpisodeDetailDesktop({ episode }: EpisodeDetailProps) {
               {episode.title}
             </h1>
             <time className='order-first font-mono text-muted-foreground text-sm leading-7'>
-              {publishedDate.toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-              })}
+              {publishedDate.toLocaleDateString(
+                i18n.language === 'zh' ? 'zh-CN' : 'en-US',
+                {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric',
+                },
+              )}
             </time>
           </div>
         </div>
@@ -143,6 +150,7 @@ function EpisodeDetailDesktop({ episode }: EpisodeDetailProps) {
 }
 
 function EpisodeDetailMobile({ episode }: EpisodeDetailProps) {
+  const { t, i18n } = useTranslation()
   const publishedDate = new Date(episode.published)
   const pageStore = getPageStore()
   const currentPage = useStore(pageStore, (state) => state.currentPage)
@@ -174,7 +182,7 @@ function EpisodeDetailMobile({ episode }: EpisodeDetailProps) {
           )}
         >
           <ChevronLeft className='size-4 text-foreground' />
-          <span className='font-bold'>Back</span>
+          <span className='font-bold'>{t('episodes.back')}</span>
         </Link>
       </div>
 
@@ -191,7 +199,9 @@ function EpisodeDetailMobile({ episode }: EpisodeDetailProps) {
               'cursor-pointer focus:outline-none focus:ring-2 focus:ring-theme focus:ring-offset-2',
             )}
             aria-label={
-              isCurrentEpisodePlaying ? 'Pause episode' : 'Play episode'
+              isCurrentEpisodePlaying
+                ? t('episodes.pauseEpisode')
+                : t('episodes.playEpisode')
             }
           >
             {isCurrentEpisodePlaying ? (
@@ -206,11 +216,14 @@ function EpisodeDetailMobile({ episode }: EpisodeDetailProps) {
               {episode.title}
             </h1>
             <time className='order-first font-mono text-muted-foreground text-xs leading-7'>
-              {publishedDate.toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-              })}
+              {publishedDate.toLocaleDateString(
+                i18n.language === 'zh' ? 'zh-CN' : 'en-US',
+                {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric',
+                },
+              )}
             </time>
           </div>
         </div>

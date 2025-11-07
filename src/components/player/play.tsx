@@ -5,6 +5,7 @@ import {
   useMediaState,
 } from '@vidstack/react'
 import { PauseIcon, PlayIcon } from '@vidstack/react/icons'
+import { useTranslation } from 'react-i18next'
 import { cn } from '@/lib/utils'
 
 interface MediaButtonProps {
@@ -13,6 +14,7 @@ interface MediaButtonProps {
 }
 
 export function Play({ tooltipPlacement, className }: MediaButtonProps) {
+  const { t } = useTranslation()
   const isPaused = useMediaState('paused')
 
   return (
@@ -36,7 +38,7 @@ export function Play({ tooltipPlacement, className }: MediaButtonProps) {
         className='fade-out slide-out-to-bottom-2 data-[visible]:fade-in data-[visible]:slide-in-from-bottom-4 z-10 parent-data-[open]:hidden animate-out rounded-sm bg-black/90 px-2 py-0.5 font-medium text-sm text-white data-[visible]:animate-in'
         placement={tooltipPlacement}
       >
-        {isPaused ? 'Play' : 'Pause'}
+        {isPaused ? t('player.play') : t('player.pause')}
       </Tooltip.Content>
     </Tooltip.Root>
   )

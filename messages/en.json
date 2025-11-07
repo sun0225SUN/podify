@@ -10,6 +10,26 @@
   "aside": {
     "hostedBy": "Hosted by"
   },
+  "podcastInfo": {
+    "about": "About",
+    "listen": "Listen",
+    "showMore": "Show more",
+    "showLess": "Show less"
+  },
+  "episodes": {
+    "title": "Episodes",
+    "noEpisodes": "No episodes available.",
+    "listen": "Listen",
+    "pause": "Pause",
+    "showNotes": "Show notes",
+    "back": "Back",
+    "playEpisode": "Play episode",
+    "pauseEpisode": "Pause episode"
+  },
+  "pagination": {
+    "previous": "Previous",
+    "next": "Next"
+  },
   "cmdk": {
     "searchPlaceholder": "Search commands...",
     "noResults": "No results found",
@@ -27,5 +47,15 @@
     "application": "Application",
     "openApplication": "Open",
     "actions": "Actions"
+  },
+  "player": {
+    "play": "Play",
+    "pause": "Pause",
+    "seekForward": "Forward 15s",
+    "seekBackward": "Backward 15s",
+    "speed": "Speed",
+    "volume": "Volume",
+    "mute": "Mute",
+    "unmute": "Unmute"
   }
 }

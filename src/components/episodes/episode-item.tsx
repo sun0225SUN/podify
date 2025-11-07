@@ -1,6 +1,7 @@
 import { Link } from '@tanstack/react-router'
 import { useStore } from '@tanstack/react-store'
 import { Pause, Play } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import ReactMarkdown, { type Components } from 'react-markdown'
 import { cn } from '@/lib/utils'
 import {
@@ -42,6 +43,7 @@ interface EpisodeItemProps {
 }
 
 export function EpisodeItem({ episode, variant }: EpisodeItemProps) {
+  const { t, i18n } = useTranslation()
   const isDesktop = variant === 'desktop'
   const playerStore = getPlayerStore()
   const currentEpisode = useStore(playerStore, (state) => state.currentEpisode)
@@ -73,11 +75,14 @@ export function EpisodeItem({ episode, variant }: EpisodeItemProps) {
             isDesktop ? 'text-sm' : 'text-xs',
           )}
         >
-          {new Date(episode.published).toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-          })}
+          {new Date(episode.published).toLocaleDateString(
+            i18n.language === 'zh' ? 'zh-CN' : 'en-US',
+            {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+            },
+          )}
         </time>
       )}
       <h2 className={cn('font-bold', isDesktop ? 'text-2xl' : 'text-xl')}>
@@ -118,7 +123,9 @@ export function EpisodeItem({ episode, variant }: EpisodeItemProps) {
               className={cn('flex-shrink-0', isDesktop ? 'size-4' : 'size-3.5')}
             />
           )}
-          <span>{isCurrentlyPlaying ? 'Pause' : 'Listen'}</span>
+          <span>
+            {isCurrentlyPlaying ? t('episodes.pause') : t('episodes.listen')}
+          </span>
         </button>
         <span className='text-muted-foreground'>/</span>
         <Link
@@ -126,7 +133,7 @@ export function EpisodeItem({ episode, variant }: EpisodeItemProps) {
           params={{ episodeId: episode.id }}
           className='cursor-pointer font-medium text-theme hover:text-theme-hover'
         >
-          Show notes
+          {t('episodes.showNotes')}
         </Link>
       </div>
     </li>
