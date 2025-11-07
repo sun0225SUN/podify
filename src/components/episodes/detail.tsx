@@ -76,14 +76,14 @@ function EpisodeDetailDesktop({ episode }: EpisodeDetailProps) {
   }
 
   return (
-    <section className='hidden w-full flex-1 flex-col md:flex'>
+    <section className='hidden w-full flex-col md:flex'>
       <div className='sticky top-0 z-10 border-border border-b bg-background'>
         <Waveform className='h-24 w-full' />
         <Link
           to='/'
           search={{ page: currentPage }}
           className={cn(
-            'absolute inset-0 flex items-center gap-2 px-28',
+            'absolute inset-0 flex items-center gap-2 px-10 lg:px-28',
             'text-base transition-colors hover:text-muted-foreground',
           )}
         >
@@ -92,7 +92,7 @@ function EpisodeDetailDesktop({ episode }: EpisodeDetailProps) {
         </Link>
       </div>
 
-      <article className='px-28 py-16'>
+      <article className='px-10 py-16 lg:px-28'>
         <div className='flex items-center gap-6'>
           <button
             type='button'
@@ -163,7 +163,7 @@ function EpisodeDetailMobile({ episode }: EpisodeDetailProps) {
   }
 
   return (
-    <section className='flex w-full flex-1 flex-col md:hidden'>
+    <section className='flex w-full flex-col md:hidden'>
       <div className='sticky top-0 z-10 h-14 w-full bg-background/95 backdrop-blur-md'>
         <Link
           to='/'

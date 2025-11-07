@@ -15,8 +15,10 @@ export function PlayerLayoutDesktop() {
     <Controls.Root
       className={cn('flex w-full flex-col gap-5 px-10 py-4', styles.controls)}
     >
-      <Controls.Group className='relative flex w-full items-center justify-between'>
-        <EpisodeTitle />
+      <Controls.Group className='relative flex min-h-14 w-full items-center justify-between'>
+        <div className='hidden xl:block'>
+          <EpisodeTitle />
+        </div>
         <div className='-translate-x-1/2 -translate-y-1/2 absolute top-1/2 left-1/2 flex items-center gap-4'>
           <SeekBackward />
           <Play
@@ -25,11 +27,13 @@ export function PlayerLayoutDesktop() {
           />
           <SeekForward />
         </div>
-        <div className='flex items-center gap-4'>
-          <Speed />
-          <div className='flex items-center'>
-            <Mute />
-            <Volume />
+        <div className='hidden xl:block'>
+          <div className='flex items-center gap-4'>
+            <Speed />
+            <div className='flex items-center'>
+              <Mute />
+              <Volume />
+            </div>
           </div>
         </div>
       </Controls.Group>

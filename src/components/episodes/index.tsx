@@ -38,19 +38,21 @@ function EpisodesDesktop({ episodes, currentPage }: EpisodesProps) {
   const currentEpisodes = episodes.slice(startIndex, startIndex + pageSize)
 
   return (
-    <div className='hidden w-full flex-1 flex-col md:flex'>
+    <div className='hidden w-full flex-col md:flex'>
       <div className='sticky top-0 z-10 border-border border-b bg-background'>
         <Waveform className='h-24 w-full' />
-        <h1 className='absolute inset-0 top-10 px-28 font-bold text-2xl'>
+        <h1 className='absolute inset-0 top-10 px-10 font-bold text-2xl lg:px-28'>
           Episodes
         </h1>
       </div>
 
       {episodes.length === 0 ? (
-        <p className='px-28 text-muted-foreground'>No episodes available.</p>
+        <p className='px-10 text-muted-foreground lg:px-28'>
+          No episodes available.
+        </p>
       ) : (
         <>
-          <ul className='flex min-h-[70vh] flex-col'>
+          <ul className='flex flex-col'>
             {currentEpisodes.map((episode) => (
               <EpisodeItem
                 key={episode.id}
@@ -63,7 +65,7 @@ function EpisodesDesktop({ episodes, currentPage }: EpisodesProps) {
           <EpisodesPagination
             currentPage={currentPage}
             totalPages={totalPages}
-            paddingClassName='px-28 py-12'
+            paddingClassName='px-10 lg:px-28 py-12'
           />
         </>
       )}
@@ -78,14 +80,14 @@ function EpisodesMobile({ episodes, currentPage }: EpisodesProps) {
   const currentEpisodes = episodes.slice(startIndex, startIndex + pageSize)
 
   return (
-    <div className='flex w-full flex-1 flex-col md:hidden'>
+    <div className='flex w-full flex-col md:hidden'>
       {episodes.length === 0 ? (
         <p className='px-4 py-8 text-muted-foreground'>
           No episodes available.
         </p>
       ) : (
         <>
-          <ul className='flex min-h-[70vh] flex-col'>
+          <ul className='flex flex-col'>
             {currentEpisodes.map((episode) => (
               <EpisodeItem
                 key={episode.id}

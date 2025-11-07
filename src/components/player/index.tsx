@@ -59,7 +59,7 @@ function PlayerView({
       className={cn(
         isDesktop ? 'hidden md:block' : 'block md:hidden',
         'fixed right-0 bottom-0 z-50',
-        isDesktop ? 'left-120' : 'left-0',
+        isDesktop ? 'left-[24rem] lg:left-[28rem]' : 'left-0',
         'border-t bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60',
         'transition-opacity duration-300',
         hasPlayer

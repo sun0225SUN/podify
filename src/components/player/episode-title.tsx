@@ -12,7 +12,7 @@ export function EpisodeTitle() {
   }
 
   return (
-    <ScrollTextContainer className='w-96 text-sm'>
+    <ScrollTextContainer className='w-60 text-sm'>
       <ScrollTextRow
         baseVelocity={20}
         direction={1}

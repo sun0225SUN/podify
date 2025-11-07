@@ -52,7 +52,7 @@ function PodcastInfoDesktop({ podcastInfo }: PodcastInfoContentProps) {
     <div
       className={cn(
         'hidden md:flex',
-        'h-full flex-col gap-12 overflow-y-auto p-12',
+        'h-full flex-col gap-12 p-12',
         'border-border border-x',
       )}
     >
