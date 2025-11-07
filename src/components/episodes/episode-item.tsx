@@ -63,7 +63,7 @@ export function EpisodeItem({ episode, variant }: EpisodeItemProps) {
     <li
       className={cn(
         'flex flex-col gap-3 border-border border-b',
-        isDesktop ? 'px-10 py-12 lg:px-28' : 'p-8',
+        isDesktop ? 'px-10 py-12 lg:px-20' : 'p-8',
       )}
     >
       {episode.published && (

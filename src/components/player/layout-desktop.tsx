@@ -13,7 +13,7 @@ import styles from '@/styles/player.module.css'
 export function PlayerLayoutDesktop() {
   return (
     <Controls.Root
-      className={cn('flex w-full flex-col gap-5 px-10 py-4', styles.controls)}
+      className={cn('hidden md:flex w-full flex-col gap-5 px-10 py-4', styles.controls)}
     >
       <Controls.Group className='relative flex min-h-14 w-full items-center justify-between'>
         <div className='hidden xl:block'>

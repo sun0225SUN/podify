@@ -83,7 +83,7 @@ function EpisodeDetailDesktop({ episode }: EpisodeDetailProps) {
           to='/'
           search={{ page: currentPage }}
           className={cn(
-            'absolute inset-0 flex items-center gap-2 px-10 lg:px-28',
+            'absolute inset-0 flex items-center gap-2 px-10 lg:px-20',
             'text-base transition-colors hover:text-muted-foreground',
           )}
         >
@@ -92,7 +92,7 @@ function EpisodeDetailDesktop({ episode }: EpisodeDetailProps) {
         </Link>
       </div>
 
-      <article className='px-10 py-16 lg:px-28'>
+      <article className='px-10 py-16 lg:px-20'>
         <div className='flex items-center gap-6'>
           <button
             type='button'

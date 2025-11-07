@@ -24,42 +24,9 @@ export function Player() {
   const hasPlayer = currentEpisode !== null
 
   return (
-    <>
-      <PlayerView
-        variant='desktop'
-        playerRef={playerRef}
-        currentEpisode={currentEpisode}
-        hasPlayer={hasPlayer}
-      />
-      <PlayerView
-        variant='mobile'
-        playerRef={playerRef}
-        currentEpisode={currentEpisode}
-        hasPlayer={hasPlayer}
-      />
-    </>
-  )
-}
-
-function PlayerView({
-  variant,
-  playerRef,
-  currentEpisode,
-  hasPlayer,
-}: {
-  variant: 'desktop' | 'mobile'
-  playerRef: React.RefObject<MediaPlayerInstance | null>
-  currentEpisode: Episode | null
-  hasPlayer: boolean
-}) {
-  const isDesktop = variant === 'desktop'
-
-  return (
     <div
       className={cn(
-        isDesktop ? 'hidden md:block' : 'block md:hidden',
-        'fixed right-0 bottom-0 z-50',
-        isDesktop ? 'left-[24rem] lg:left-[28rem]' : 'left-0',
+        'fixed right-0 bottom-0 left-0 z-50 md:left-[24rem] lg:left-[28rem]',
         'border-t bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60',
         'transition-opacity duration-300',
         hasPlayer
@@ -78,7 +45,8 @@ function PlayerView({
       >
         <MediaProvider />
         <PlayerContent />
-        {isDesktop ? <PlayerLayoutDesktop /> : <PlayerLayoutMobile />}
+        <PlayerLayoutDesktop />
+        <PlayerLayoutMobile />
       </MediaPlayer>
     </div>
   )
@@ -93,125 +61,86 @@ function PlayerContent() {
   const paused = useMediaState('paused')
   const previousEpisodeRef = useRef<Episode | null>(null)
   const isEpisodeChangingRef = useRef(false)
-  const pendingPlayRef = useRef(false)
-  const retryTimeoutRef = useRef<number | null>(null)
 
+  // Register player instance
   useEffect(() => {
     if (player) {
       registerPlayerInstance(player)
-
-      // Listen to play/pause events to sync state
-      const handlePlay = () => {
-        if (!isEpisodeChangingRef.current) {
-          setIsPlaying(true)
-        }
-      }
-
-      const handlePause = () => {
-        if (!isEpisodeChangingRef.current) {
-          setIsPlaying(false)
-        }
-      }
-
-      const handleEnded = () => {
-        setIsPlaying(false)
-      }
-
-      player.addEventListener('play', handlePlay)
-      player.addEventListener('pause', handlePause)
-      player.addEventListener('ended', handleEnded)
-
-      return () => {
-        player.removeEventListener('play', handlePlay)
-        player.removeEventListener('pause', handlePause)
-        player.removeEventListener('ended', handleEnded)
-      }
     }
   }, [player])
 
-  useEffect(() => {
-    if (currentEpisode?.id !== previousEpisodeRef.current?.id) {
-      isEpisodeChangingRef.current = true
-      pendingPlayRef.current = isPlaying
-      previousEpisodeRef.current = currentEpisode
-      if (retryTimeoutRef.current !== null) {
-        clearTimeout(retryTimeoutRef.current)
-        retryTimeoutRef.current = null
-      }
-    }
-  }, [currentEpisode, isPlaying])
-
-  useEffect(() => {
-    // Always sync player paused state to store, but skip during episode change
-    // After episode change is complete, sync the actual state
-    if (isEpisodeChangingRef.current) {
-      // Reset the flag after a short delay to allow state to stabilize
-      const timeoutId = setTimeout(() => {
-        if (isEpisodeChangingRef.current) {
-          isEpisodeChangingRef.current = false
-          setIsPlaying(!paused)
-        }
-      }, 100)
-      return () => clearTimeout(timeoutId)
-    }
-    setIsPlaying(!paused)
-  }, [paused])
-
+  // Listen to player events and sync to store
   useEffect(() => {
     if (!player) return
 
-    const handleCanPlay = () => {
-      // Sync actual player state to store when episode is ready
-      if (isEpisodeChangingRef.current) {
-        isEpisodeChangingRef.current = false
-        setIsPlaying(!player.paused)
-      }
-
-      if (pendingPlayRef.current && player.paused) {
-        if (retryTimeoutRef.current !== null) {
-          clearTimeout(retryTimeoutRef.current)
-        }
-
-        retryTimeoutRef.current = window.setTimeout(() => {
-          if (pendingPlayRef.current && player.paused) {
-            const playPromise = player.play()
-            if (playPromise !== undefined) {
-              playPromise
-                .then(() => {
-                  pendingPlayRef.current = false
-                })
-                .catch(() => {
-                  if (retryTimeoutRef.current !== null) {
-                    clearTimeout(retryTimeoutRef.current)
-                  }
-                  retryTimeoutRef.current = window.setTimeout(() => {
-                    if (pendingPlayRef.current && player.paused) {
-                      player.play().catch(() => {
-                        pendingPlayRef.current = false
-                      })
-                    }
-                  }, 100)
-                })
-            }
-          }
-        }, 50)
+    const handlePlay = () => {
+      if (!isEpisodeChangingRef.current) {
+        setIsPlaying(true)
       }
     }
 
-    player.addEventListener('can-play', handleCanPlay)
-
-    if (canPlay && pendingPlayRef.current && player.paused) {
-      handleCanPlay()
+    const handlePause = () => {
+      if (!isEpisodeChangingRef.current) {
+        setIsPlaying(false)
+      }
     }
+
+    const handleEnded = () => {
+      setIsPlaying(false)
+    }
+
+    player.addEventListener('play', handlePlay)
+    player.addEventListener('pause', handlePause)
+    player.addEventListener('ended', handleEnded)
 
     return () => {
-      player.removeEventListener('can-play', handleCanPlay)
-      if (retryTimeoutRef.current !== null) {
-        clearTimeout(retryTimeoutRef.current)
-      }
+      player.removeEventListener('play', handlePlay)
+      player.removeEventListener('pause', handlePause)
+      player.removeEventListener('ended', handleEnded)
     }
-  }, [player, canPlay])
+  }, [player])
 
+  // Detect episode change
+  useEffect(() => {
+    if (currentEpisode?.id !== previousEpisodeRef.current?.id) {
+      isEpisodeChangingRef.current = true
+      previousEpisodeRef.current = currentEpisode
+    }
+  }, [currentEpisode])
+
+  // Handle playback when media is ready
+  useEffect(() => {
+    if (!player || !canPlay) return
+
+    // Clear episode changing flag when ready
+    if (isEpisodeChangingRef.current) {
+      isEpisodeChangingRef.current = false
+    }
+
+    // Auto-play when episode changes and isPlaying is true
+    if (isPlaying && player.paused) {
+      player.play().catch((error) => {
+        console.error('Failed to play:', error)
+        setIsPlaying(false)
+      })
+    }
+  }, [player, canPlay, isPlaying])
+
+  // Sync store isPlaying to player state
+  useEffect(() => {
+    if (!player || !currentEpisode || isEpisodeChangingRef.current) return
+
+    if (isPlaying && player.paused) {
+      player.play().catch((error) => {
+        console.error('Failed to play:', error)
+        setIsPlaying(false)
+      })
+    } else if (!isPlaying && !player.paused) {
+      player.pause()
+    }
+  }, [player, currentEpisode, isPlaying])
+
+  // Space bar shortcut
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key !== ' ' || event.repeat) return
@@ -239,34 +168,6 @@ function PlayerContent() {
       window.removeEventListener('keydown', handleKeyDown)
     }
   }, [player, currentEpisode, paused, canPlay])
-
-  useEffect(() => {
-    if (!currentEpisode || !player) return
-
-    // Skip sync during episode change to avoid conflicts
-    if (isEpisodeChangingRef.current) {
-      return
-    }
-
-    if (isPlaying) {
-      pendingPlayRef.current = true
-
-      if (!canPlay && !player.paused) {
-        player.pause()
-      } else if (canPlay && player.paused) {
-        // If store says playing but player is paused, sync player to store
-        player.play().catch(() => {
-          // If play fails, sync store to actual player state
-          setIsPlaying(false)
-        })
-      }
-    } else {
-      pendingPlayRef.current = false
-      if (!player.paused) {
-        player.pause()
-      }
-    }
-  }, [canPlay, currentEpisode, isPlaying, player])
 
   return null
 }

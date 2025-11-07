@@ -41,13 +41,13 @@ function EpisodesDesktop({ episodes, currentPage }: EpisodesProps) {
     <div className='hidden w-full flex-col md:flex'>
       <div className='sticky top-0 z-10 border-border border-b bg-background'>
         <Waveform className='h-24 w-full' />
-        <h1 className='absolute inset-0 top-10 px-10 font-bold text-2xl lg:px-28'>
+        <h1 className='absolute inset-0 top-10 px-10 font-bold text-2xl lg:px-20'>
           Episodes
         </h1>
       </div>
 
       {episodes.length === 0 ? (
-        <p className='px-10 text-muted-foreground lg:px-28'>
+        <p className='px-10 text-muted-foreground lg:px-20'>
           No episodes available.
         </p>
       ) : (
@@ -65,7 +65,7 @@ function EpisodesDesktop({ episodes, currentPage }: EpisodesProps) {
           <EpisodesPagination
             currentPage={currentPage}
             totalPages={totalPages}
-            paddingClassName='px-10 lg:px-28 py-12'
+            paddingClassName='px-10 lg:px-20 py-12'
           />
         </>
       )}
