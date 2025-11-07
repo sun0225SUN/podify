@@ -3,11 +3,14 @@ import '@/styles/episode.css'
 import { Link } from '@tanstack/react-router'
 import { useStore } from '@tanstack/react-store'
 import { ChevronLeft, Pause, Play } from 'lucide-react'
-import { useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import ReactMarkdown, { type Components } from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { Waveform } from '@/components/common/waveform'
+import { ImageLightbox, ImageWithLightbox } from '@/components/image-lightbox'
+import { useLightbox } from '@/hooks/use-lightbox'
+import { extractImagesFromMarkdown } from '@/lib/markdown'
 import { cn } from '@/lib/utils'
 import { getPageStore } from '@/stores/page-store'
 import {
@@ -22,41 +25,71 @@ interface EpisodeDetailProps {
   episode: Episode
 }
 
-const markdownComponents: Partial<Components> = {
-  a: ({ href, children }) => (
-    <a
-      href={href}
-      target='_blank'
-      rel='noopener noreferrer'
-      className='font-medium text-theme underline transition-colors hover:text-theme-hover'
-    >
-      {children}
-    </a>
-  ),
-  img: ({ src, alt }) => (
-    <img
-      src={src}
-      alt={alt || ''}
-      className='my-6 max-h-[500px] max-w-full rounded-lg object-contain shadow-md'
-      loading='lazy'
-    />
-  ),
-}
-
 export function EpisodeDetail({ episode }: EpisodeDetailProps) {
+  const lightbox = useLightbox()
+
+  const images = useMemo(() => {
+    const content = episode.content ?? episode.description ?? ''
+    return extractImagesFromMarkdown(content)
+  }, [episode.content, episode.description])
+
   useEffect(() => {
     window.scrollTo({ top: 0 })
   }, [])
 
+  const markdownComponents: Partial<Components> = {
+    a: ({ href, children }) => (
+      <a
+        href={href}
+        target='_blank'
+        rel='noopener noreferrer'
+        className='font-medium text-theme underline transition-colors hover:text-theme-hover'
+      >
+        {children}
+      </a>
+    ),
+    img: ({ src, alt }: { src?: string; alt?: string }) => {
+      const imageIndex = src ? images.findIndex((img) => img.src === src) : -1
+      return (
+        <ImageWithLightbox
+          src={src}
+          alt={alt}
+          index={imageIndex >= 0 ? imageIndex : 0}
+          onOpen={lightbox.open}
+        />
+      )
+    },
+  }
+
   return (
     <>
-      <EpisodeDetailDesktop episode={episode} />
-      <EpisodeDetailMobile episode={episode} />
+      <EpisodeDetailDesktop
+        episode={episode}
+        markdownComponents={markdownComponents}
+      />
+      <EpisodeDetailMobile
+        episode={episode}
+        markdownComponents={markdownComponents}
+      />
+      <ImageLightbox
+        images={images}
+        open={lightbox.isOpen}
+        index={lightbox.currentIndex}
+        onClose={lightbox.close}
+        onViewChange={lightbox.setIndex}
+      />
     </>
   )
 }
 
-function EpisodeDetailDesktop({ episode }: EpisodeDetailProps) {
+interface EpisodeDetailDesktopProps extends EpisodeDetailProps {
+  markdownComponents: Partial<Components>
+}
+
+function EpisodeDetailDesktop({
+  episode,
+  markdownComponents,
+}: EpisodeDetailDesktopProps) {
   const { t, i18n } = useTranslation()
   const publishedDate = new Date(episode.published)
   const pageStore = getPageStore()
@@ -149,7 +182,14 @@ function EpisodeDetailDesktop({ episode }: EpisodeDetailProps) {
   )
 }
 
-function EpisodeDetailMobile({ episode }: EpisodeDetailProps) {
+interface EpisodeDetailMobileProps extends EpisodeDetailProps {
+  markdownComponents: Partial<Components>
+}
+
+function EpisodeDetailMobile({
+  episode,
+  markdownComponents,
+}: EpisodeDetailMobileProps) {
   const { t, i18n } = useTranslation()
   const publishedDate = new Date(episode.published)
   const pageStore = getPageStore()
