@@ -1,18 +1,26 @@
 import { Time } from '@vidstack/react'
+import { cn } from '@/lib/utils'
 
-export function CurrentTime() {
+interface TimeProps {
+  className?: string
+}
+
+export function CurrentTime({ className }: TimeProps = {}) {
   return (
     <Time
-      className='font-medium text-sm tabular-nums'
+      className={cn('font-medium text-sm tabular-nums', className)}
       type='current'
     />
   )
 }
 
-export function Duration() {
+export function Duration({ className }: TimeProps = {}) {
   return (
     <Time
-      className='font-medium text-muted-foreground text-sm tabular-nums'
+      className={cn(
+        'font-medium text-muted-foreground text-sm tabular-nums',
+        className,
+      )}
       type='duration'
     />
   )
