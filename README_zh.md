@@ -49,11 +49,6 @@
 - 🪝 Git 钩子 - [Lefthook](https://lefthook.dev)
 - 📊 流量分析 - [Umami](https://umami.is)
 
-## 👥 贡献者
-
-<!-- readme: collaborators,contributors -start -->
-<!-- readme: collaborators,contributors -end -->
-
 ## 🍭 社区
 
 - [Telegram](https://t.me/guoqisun)
@@ -63,8 +58,6 @@
 - [Transmit](https://tailwindcss.com/plus/templates/transmit)
 
 ## 🚀 快速开始
-
-### Netlify
 
 [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/sun0225SUN/podify)
 
