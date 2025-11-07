@@ -6,5 +6,26 @@
     "toggleTheme": "Toggle theme",
     "language": "Language",
     "selectLanguage": "Select Language"
+  },
+  "aside": {
+    "hostedBy": "Hosted by"
+  },
+  "cmdk": {
+    "searchPlaceholder": "Search commands...",
+    "noResults": "No results found",
+    "suggestions": "Suggestions",
+    "commands": "Navigation",
+    "toggle": "Toggle",
+    "light": "Light",
+    "dark": "Dark",
+    "mode": "Mode",
+    "command": "Command",
+    "switchTo": "Switch to",
+    "en": "English",
+    "zh": "Chinese",
+    "episodes": "Episodes",
+    "application": "Application",
+    "openApplication": "Open",
+    "actions": "Actions"
   }
 }

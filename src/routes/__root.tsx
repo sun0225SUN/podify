@@ -5,6 +5,7 @@ import {
   Scripts,
   useRouteContext,
 } from '@tanstack/react-router'
+import { CommandMenu } from '@/components/cmdk'
 import { LanguageProvider } from '@/components/language/provider'
 import { Player } from '@/components/player'
 import { ThemeProvider } from '@/components/theme/provider'
@@ -161,6 +162,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
           >
             {children}
             <Player />
+            <CommandMenu />
           </ThemeProvider>
         </LanguageProvider>
         <Scripts />

@@ -6,5 +6,26 @@
     "toggleTheme": "切换主题",
     "language": "语言",
     "selectLanguage": "选择语言"
+  },
+  "aside": {
+    "hostedBy": "主 播"
+  },
+  "cmdk": {
+    "searchPlaceholder": "搜索命令...",
+    "noResults": "未找到结果",
+    "suggestions": "建议",
+    "commands": "导航",
+    "toggle": "切换",
+    "light": "浅色",
+    "dark": "深色",
+    "mode": "模式",
+    "command": "命令",
+    "switchTo": "切换到",
+    "en": "英文",
+    "zh": "中文",
+    "episodes": "节目列表",
+    "application": "应用",
+    "openApplication": "打开",
+    "actions": "操作"
   }
 }
