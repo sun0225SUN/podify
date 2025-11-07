@@ -14,6 +14,7 @@
  <img alt="netlify" src="https://api.netlify.com/api/v1/badges/aadf48af-a5c9-431f-9c7f-19cd0b546d6d/deploy-status">
 
   <p>Podify 是一个使用 TanStack Start 构建的精美播客模板</p>
+  <img src="./readme/images/preview.png" alt="screenshot" />
 </div>
 
 ## ✨ 特性
