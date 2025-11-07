@@ -27,6 +27,16 @@ export function EpisodesPagination({
 
   if (totalPages <= 1) return null
 
+  const handleClick = () => {
+    setTimeout(() => {
+      const mainContainer = document.getElementById('main-scroll-container')
+      if (mainContainer) {
+        mainContainer.scrollTo({ top: 0, behavior: 'instant' })
+      }
+      window.scrollTo({ top: 0, behavior: 'instant' })
+    }, 100)
+  }
+
   return (
     <div className={paddingClassName}>
       <Pagination>
@@ -42,6 +52,7 @@ export function EpisodesPagination({
                 to='/'
                 search={{ page: currentPage - 1 }}
                 disabled={currentPage === 1}
+                onClick={handleClick}
               >
                 <ChevronLeftIcon />
                 <span className='hidden sm:block'>
@@ -85,6 +96,7 @@ export function EpisodesPagination({
                   <Link
                     to='/'
                     search={{ page }}
+                    onClick={handleClick}
                   >
                     {page}
                   </Link>
@@ -104,6 +116,7 @@ export function EpisodesPagination({
                 to='/'
                 search={{ page: currentPage + 1 }}
                 disabled={currentPage === totalPages}
+                onClick={handleClick}
               >
                 <span className='hidden sm:block'>{t('pagination.next')}</span>
                 <ChevronRightIcon />
