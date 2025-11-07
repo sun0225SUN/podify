@@ -22,7 +22,7 @@ export function PodcastLayout({ children }: PodcastLayoutProps) {
 
       <div className='flex min-h-screen flex-col md:hidden'>
         <PodcastInfo />
-        <div className='flex-1'>{children}</div>
+        <div className='flex-1 pb-28'>{children}</div>
       </div>
     </>
   )

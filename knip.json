@@ -1,0 +1,18 @@
+{
+  "$schema": "https://unpkg.com/knip@5/schema.json",
+  "entry": [
+    "src/routes/**/*.{ts,tsx}",
+    "src/router.tsx"
+  ],
+  "project": ["**/*.{js,ts,tsx}"],
+  "ignore": [],
+  "ignoreDependencies": [
+    "lefthook",
+    "tailwindcss",
+    "tw-animate-css",
+    "media-icons",
+    "@commitlint/cli"
+  ],
+  "ignoreExportsUsedInFile": true,
+  "includeEntryExports": false
+}
