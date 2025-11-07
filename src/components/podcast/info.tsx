@@ -108,7 +108,7 @@ function PodcastInfoDesktop({ podcastInfo }: PodcastInfoContentProps) {
               <button
                 type='button'
                 onClick={() => setIsExpanded(!isExpanded)}
-                className='self-start font-medium text-theme transition-colors hover:text-theme-hover'
+                className='cursor-pointer self-start font-medium text-theme transition-colors hover:text-theme-hover'
               >
                 {isExpanded ? 'Show less' : 'Show more'}
               </button>
@@ -138,7 +138,7 @@ function PodcastInfoDesktop({ podcastInfo }: PodcastInfoContentProps) {
                     href={platform.link}
                     target='_blank'
                     rel='noopener noreferrer'
-                    className='flex items-center gap-2'
+                    className='flex cursor-pointer items-center gap-2'
                   >
                     <Icon className={cn('h-6 w-6', config.colorClass)} />
                     <span>{platform.name}</span>

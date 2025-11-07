@@ -72,7 +72,6 @@ function EpisodeDetailDesktop({ episode }: EpisodeDetailProps) {
       play()
     } else {
       setCurrentEpisode(episode)
-      play()
     }
   }
 
@@ -103,7 +102,7 @@ function EpisodeDetailDesktop({ episode }: EpisodeDetailProps) {
               'rounded-full bg-theme',
               'shadow-lg shadow-theme/20',
               'transition-all hover:scale-105 hover:bg-theme-hover hover:shadow-theme/30 hover:shadow-xl',
-              'focus:outline-none focus:ring-2 focus:ring-theme focus:ring-offset-2',
+              'cursor-pointer focus:outline-none focus:ring-2 focus:ring-theme focus:ring-offset-2',
             )}
             aria-label={
               isCurrentEpisodePlaying ? 'Pause episode' : 'Play episode'
@@ -160,7 +159,6 @@ function EpisodeDetailMobile({ episode }: EpisodeDetailProps) {
       play()
     } else {
       setCurrentEpisode(episode)
-      play()
     }
   }
 
@@ -172,7 +170,7 @@ function EpisodeDetailMobile({ episode }: EpisodeDetailProps) {
           search={{ page: currentPage }}
           className={cn(
             'absolute inset-0 flex items-center justify-center gap-2',
-            'text-foreground text-sm transition-colors hover:text-muted-foreground',
+            'cursor-pointer text-foreground text-sm transition-colors hover:text-muted-foreground',
           )}
         >
           <ChevronLeft className='size-4 text-foreground' />
@@ -190,7 +188,7 @@ function EpisodeDetailMobile({ episode }: EpisodeDetailProps) {
               'rounded-full bg-theme',
               'shadow-lg shadow-theme/20',
               'transition-all hover:scale-105 hover:bg-theme-hover hover:shadow-theme/30 hover:shadow-xl',
-              'focus:outline-none focus:ring-2 focus:ring-theme focus:ring-offset-2',
+              'cursor-pointer focus:outline-none focus:ring-2 focus:ring-theme focus:ring-offset-2',
             )}
             aria-label={
               isCurrentEpisodePlaying ? 'Pause episode' : 'Play episode'

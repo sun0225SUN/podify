@@ -59,12 +59,22 @@ export function registerPlayerInstance(instance: MediaPlayerInstance) {
 }
 
 export function play() {
+  const store = getPlayerStore()
+  store.setState((state) => ({
+    ...state,
+    isPlaying: true,
+  }))
   if (playerInstance) {
     playerInstance.play()
   }
 }
 
 export function pause() {
+  const store = getPlayerStore()
+  store.setState((state) => ({
+    ...state,
+    isPlaying: false,
+  }))
   if (playerInstance) {
     playerInstance.pause()
   }

@@ -1,7 +1,14 @@
 import { Link } from '@tanstack/react-router'
+import { useStore } from '@tanstack/react-store'
+import { Pause, Play } from 'lucide-react'
 import ReactMarkdown, { type Components } from 'react-markdown'
 import { cn } from '@/lib/utils'
-import { setCurrentEpisode } from '@/stores/player-store'
+import {
+  getPlayerStore,
+  pause,
+  play,
+  setCurrentEpisode,
+} from '@/stores/player-store'
 import type { Episode } from '@/types/podcast'
 
 const markdownComponents: Partial<Components> = {
@@ -36,6 +43,21 @@ interface EpisodeItemProps {
 
 export function EpisodeItem({ episode, variant }: EpisodeItemProps) {
   const isDesktop = variant === 'desktop'
+  const playerStore = getPlayerStore()
+  const currentEpisode = useStore(playerStore, (state) => state.currentEpisode)
+  const isPlaying = useStore(playerStore, (state) => state.isPlaying)
+  const isCurrentEpisode = currentEpisode?.id === episode.id
+  const isCurrentlyPlaying = isCurrentEpisode && isPlaying
+
+  const handlePlayPause = () => {
+    if (isCurrentlyPlaying) {
+      pause()
+    } else if (isCurrentEpisode) {
+      play()
+    } else {
+      setCurrentEpisode(episode)
+    }
+  }
 
   return (
     <li
@@ -81,22 +103,28 @@ export function EpisodeItem({ episode, variant }: EpisodeItemProps) {
       >
         <button
           type='button'
-          onClick={() => {
-            setCurrentEpisode(episode)
-          }}
+          onClick={handlePlayPause}
           className={cn(
-            'flex items-center font-medium text-theme hover:text-theme-hover',
+            'flex cursor-pointer items-center font-medium text-theme hover:text-theme-hover',
             isDesktop ? 'gap-2' : 'gap-1.5',
           )}
         >
-          <span>▶</span>
-          <span>Listen</span>
+          {isCurrentlyPlaying ? (
+            <Pause
+              className={cn('flex-shrink-0', isDesktop ? 'size-4' : 'size-3.5')}
+            />
+          ) : (
+            <Play
+              className={cn('flex-shrink-0', isDesktop ? 'size-4' : 'size-3.5')}
+            />
+          )}
+          <span>{isCurrentlyPlaying ? 'Pause' : 'Listen'}</span>
         </button>
         <span className='text-muted-foreground'>/</span>
         <Link
           to='/episodes/$episodeId'
           params={{ episodeId: episode.id }}
-          className='font-medium text-theme hover:text-theme-hover'
+          className='cursor-pointer font-medium text-theme hover:text-theme-hover'
         >
           Show notes
         </Link>
