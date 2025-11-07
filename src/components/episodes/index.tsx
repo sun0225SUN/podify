@@ -1,4 +1,5 @@
 import { Link } from '@tanstack/react-router'
+import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react'
 import { useEffect } from 'react'
 import ReactMarkdown from 'react-markdown'
 import { Waveform } from '@/components/common/waveform'
@@ -128,17 +129,21 @@ export function Episodes({ episodes, currentPage }: EpisodesProps) {
               <Pagination>
                 <PaginationContent>
                   <PaginationItem>
-                    <Link
-                      to='/'
-                      search={{ page: currentPage - 1 }}
-                      disabled={currentPage === 1}
+                    <PaginationPrevious
+                      asChild
+                      className={cn(
+                        currentPage === 1 && 'pointer-events-none opacity-50',
+                      )}
                     >
-                      <PaginationPrevious
-                        className={cn(
-                          currentPage === 1 && 'pointer-events-none opacity-50',
-                        )}
-                      />
-                    </Link>
+                      <Link
+                        to='/'
+                        search={{ page: currentPage - 1 }}
+                        disabled={currentPage === 1}
+                      >
+                        <ChevronLeftIcon />
+                        <span className='hidden sm:block'>Previous</span>
+                      </Link>
+                    </PaginationPrevious>
                   </PaginationItem>
 
                   {Array.from({ length: totalPages }, (_, i) => i + 1).map(
@@ -171,38 +176,43 @@ export function Episodes({ episodes, currentPage }: EpisodesProps) {
 
                       return (
                         <PaginationItem key={page}>
-                          <Link
-                            to='/'
-                            search={{ page }}
+                          <PaginationLink
+                            asChild
+                            isActive={page === currentPage}
+                            className={cn(
+                              page === currentPage &&
+                                'bg-theme text-white hover:bg-theme-hover hover:text-white',
+                            )}
                           >
-                            <PaginationLink
-                              isActive={page === currentPage}
-                              className={cn(
-                                page === currentPage &&
-                                  'bg-theme text-white hover:bg-theme-hover hover:text-white',
-                              )}
+                            <Link
+                              to='/'
+                              search={{ page }}
                             >
                               {page}
-                            </PaginationLink>
-                          </Link>
+                            </Link>
+                          </PaginationLink>
                         </PaginationItem>
                       )
                     },
                   )}
 
                   <PaginationItem>
-                    <Link
-                      to='/'
-                      search={{ page: currentPage + 1 }}
-                      disabled={currentPage === totalPages}
+                    <PaginationNext
+                      asChild
+                      className={cn(
+                        currentPage === totalPages &&
+                          'pointer-events-none opacity-50',
+                      )}
                     >
-                      <PaginationNext
-                        className={cn(
-                          currentPage === totalPages &&
-                            'pointer-events-none opacity-50',
-                        )}
-                      />
-                    </Link>
+                      <Link
+                        to='/'
+                        search={{ page: currentPage + 1 }}
+                        disabled={currentPage === totalPages}
+                      >
+                        <span className='hidden sm:block'>Next</span>
+                        <ChevronRightIcon />
+                      </Link>
+                    </PaginationNext>
                   </PaginationItem>
                 </PaginationContent>
               </Pagination>

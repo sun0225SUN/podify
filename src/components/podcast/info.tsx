@@ -48,7 +48,9 @@ export function PodcastInfo() {
   const shouldTruncate = description.length > site.defaultDescriptionLength
   const displayDescription = isExpanded
     ? description
-    : `${description.slice(0, site.defaultDescriptionLength)}...`
+    : shouldTruncate
+      ? `${description.slice(0, site.defaultDescriptionLength)}...`
+      : description
 
   return (
     <div

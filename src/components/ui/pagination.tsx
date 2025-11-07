@@ -1,4 +1,5 @@
 import * as React from "react"
+import { Slot } from "@radix-ui/react-slot"
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
@@ -39,6 +40,7 @@ function PaginationItem({ ...props }: React.ComponentProps<"li">) {
 
 type PaginationLinkProps = {
   isActive?: boolean
+  asChild?: boolean
 } & Pick<React.ComponentProps<typeof Button>, "size"> &
   React.ComponentProps<"a">
 
@@ -46,10 +48,12 @@ function PaginationLink({
   className,
   isActive,
   size = "icon",
+  asChild = false,
   ...props
 }: PaginationLinkProps) {
+  const Comp = asChild ? Slot : "a"
   return (
-    <a
+    <Comp
       aria-current={isActive ? "page" : undefined}
       data-slot="pagination-link"
       data-active={isActive}
@@ -67,34 +71,52 @@ function PaginationLink({
 
 function PaginationPrevious({
   className,
+  asChild,
+  children,
   ...props
 }: React.ComponentProps<typeof PaginationLink>) {
+  const defaultContent = (
+    <>
+      <ChevronLeftIcon />
+      <span className="hidden sm:block">Previous</span>
+    </>
+  )
+  
   return (
     <PaginationLink
       aria-label="Go to previous page"
       size="default"
       className={cn("gap-1 px-2.5 sm:pl-2.5", className)}
+      asChild={asChild}
       {...props}
     >
-      <ChevronLeftIcon />
-      <span className="hidden sm:block">Previous</span>
+      {children || defaultContent}
     </PaginationLink>
   )
 }
 
 function PaginationNext({
   className,
+  asChild,
+  children,
   ...props
 }: React.ComponentProps<typeof PaginationLink>) {
+  const defaultContent = (
+    <>
+      <span className="hidden sm:block">Next</span>
+      <ChevronRightIcon />
+    </>
+  )
+  
   return (
     <PaginationLink
       aria-label="Go to next page"
       size="default"
       className={cn("gap-1 px-2.5 sm:pr-2.5", className)}
+      asChild={asChild}
       {...props}
     >
-      <span className="hidden sm:block">Next</span>
-      <ChevronRightIcon />
+      {children || defaultContent}
     </PaginationLink>
   )
 }

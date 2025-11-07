@@ -47,4 +47,13 @@ export const site: Site = {
   themeColor: 'blue', // blue, pink, purple, green, yellow, orange, red
   pageSize: 10,
   defaultDescriptionLength: 150,
+  seo: {
+    siteName: '整点薯条吧',
+    defaultTitle: '整点薯条吧',
+    defaultDescription: '人生的意义就是去码头整点薯条',
+    defaultImage: 'https://files.guoqi.dev/podcast-og.png',
+    twitterHandle: '@sun0225SUN',
+    locale: 'zh_CN',
+  },
+  favicon: 'https://files.guoqi.dev/podcast-favicon.ico',
 }

@@ -57,13 +57,31 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
         content: 'width=device-width, initial-scale=1',
       },
       {
-        title: 'TanStack Start Starter',
+        name: 'description',
+        content: site.seo.defaultDescription,
+      },
+      {
+        property: 'og:site_name',
+        content: site.seo.siteName,
+      },
+      {
+        property: 'og:locale',
+        content: site.seo.locale,
+      },
+      {
+        name: 'twitter:site',
+        content: site.seo.twitterHandle || '',
       },
     ],
     links: [
       {
         rel: 'stylesheet',
         href: appCss,
+      },
+      {
+        rel: 'icon',
+        type: 'image/x-icon',
+        href: site.favicon,
       },
     ],
   }),
