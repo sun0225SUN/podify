@@ -85,20 +85,29 @@ export function EpisodeItem({ episode, variant }: EpisodeItemProps) {
           )}
         </time>
       )}
-      <h2 className={cn('font-bold', isDesktop ? 'text-2xl' : 'text-xl')}>
+      <Link
+        to='/episodes/$episodeId'
+        params={{ episodeId: episode.id }}
+        className={cn(
+          'cursor-pointer font-bold transition-colors hover:text-theme',
+          isDesktop ? 'text-2xl' : 'text-xl',
+        )}
+      >
         {episode.title}
-      </h2>
+      </Link>
       {episode.description && (
-        <div
+        <Link
+          to='/episodes/$episodeId'
+          params={{ episodeId: episode.id }}
           className={cn(
-            'line-clamp-2 text-foreground/80 leading-relaxed',
+            'line-clamp-2 cursor-pointer text-foreground/80 leading-relaxed transition-colors hover:text-theme',
             !isDesktop && 'text-sm',
           )}
         >
           <ReactMarkdown components={markdownComponents}>
             {episode.description}
           </ReactMarkdown>
-        </div>
+        </Link>
       )}
       <div
         className={cn(

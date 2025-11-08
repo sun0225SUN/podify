@@ -137,4 +137,4 @@ bun run dev
 
 ## ⭐ Star 历史
 
-[![Star History Chart](https://api.star-history.com/svg?repos=sun0225SUN/podify&type=Date)](https://github.com/sun0225SUN/　podify)
+[![Star History Chart](https://api.star-history.com/svg?repos=sun0225SUN/podify&type=Date)](https://github.com/sun0225SUN/podify)

@@ -155,4 +155,4 @@ If you find this project helpful, please give it a ⭐️ on GitHub!
 
 ## ⭐ Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=sun0225SUN/podify&type=Date)](https://github.com/sun0225SUN/　podify)
+[![Star History Chart](https://api.star-history.com/svg?repos=sun0225SUN/podify&type=Date)](https://github.com/sun0225SUN/podify)
