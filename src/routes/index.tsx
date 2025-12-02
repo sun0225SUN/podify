@@ -6,7 +6,7 @@ import { getEpisodes, getPodcast, mergePodcastInfo } from '@/lib/podcast'
 import { getPodcastStore, setPodcastInfo } from '@/stores/podcast-store'
 
 const searchSchema = z.object({
-  page: z.number().int().positive().catch(1),
+  page: z.number().int().positive().optional(),
 })
 
 export const Route = createFileRoute('/')({
@@ -89,7 +89,8 @@ export const Route = createFileRoute('/')({
 
 function App() {
   const { episodes, podcastInfo } = Route.useLoaderData()
-  const { page } = Route.useSearch()
+  const search = Route.useSearch()
+  const page = search.page || 1
 
   const store = getPodcastStore()
   if (podcastInfo && store.state.podcastInfo !== podcastInfo) {

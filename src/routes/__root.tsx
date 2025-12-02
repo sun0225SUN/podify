@@ -102,7 +102,6 @@ function NotFound() {
         </p>
         <Link
           to='/'
-          search={{ page: 1 }}
           className='inline-block rounded-lg bg-theme px-6 py-3 text-white transition-colors hover:bg-theme-hover'
         >
           Go back home

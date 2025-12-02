@@ -58,7 +58,6 @@ function PodcastInfoDesktop({ podcastInfo }: PodcastInfoContentProps) {
           >
             <Link
               to={link}
-              search={{ page: 1 }}
               className='block aspect-square w-full'
             >
               <img
@@ -163,7 +162,6 @@ function PodcastInfoMobile({ podcastInfo }: PodcastInfoContentProps) {
       <Waveform className='absolute top-0 left-0 w-full' />
       <Link
         to='/'
-        search={{ page: 1 }}
         className='flex justify-center pt-20'
       >
         <img

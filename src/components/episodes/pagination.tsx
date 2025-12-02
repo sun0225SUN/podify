@@ -50,7 +50,9 @@ export function EpisodesPagination({
             >
               <Link
                 to='/'
-                search={{ page: currentPage - 1 }}
+                search={{
+                  page: currentPage - 1 === 1 ? undefined : currentPage - 1,
+                }}
                 disabled={currentPage === 1}
                 onClick={handleClick}
               >
@@ -95,7 +97,7 @@ export function EpisodesPagination({
                 >
                   <Link
                     to='/'
-                    search={{ page }}
+                    search={{ page: page === 1 ? undefined : page }}
                     onClick={handleClick}
                   >
                     {page}

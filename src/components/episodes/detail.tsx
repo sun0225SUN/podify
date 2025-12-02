@@ -153,7 +153,7 @@ function EpisodeDetailDesktop({
         <Waveform className='h-24 w-full' />
         <Link
           to='/'
-          search={{ page: currentPage }}
+          search={{ page: currentPage === 1 ? undefined : currentPage }}
           className={cn(
             'absolute inset-0 flex items-center gap-2 px-10 lg:px-20',
             'text-base transition-colors hover:text-muted-foreground',
@@ -260,7 +260,7 @@ function EpisodeDetailMobile({
       <div className='sticky top-0 z-10 h-14 w-full bg-background/95 backdrop-blur-md'>
         <Link
           to='/'
-          search={{ page: currentPage }}
+          search={{ page: currentPage === 1 ? undefined : currentPage }}
           className={cn(
             'absolute inset-0 flex items-center justify-center gap-2',
             'cursor-pointer text-foreground text-sm transition-colors hover:text-muted-foreground',

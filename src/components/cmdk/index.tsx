@@ -36,7 +36,7 @@ export function CommandMenu() {
   }, [open])
 
   const handleNavigation = (path: string) => {
-    navigate({ to: path, search: { page: 1 } })
+    navigate({ to: path })
     setOpen(false)
   }
 
