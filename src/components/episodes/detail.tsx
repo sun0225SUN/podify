@@ -9,6 +9,7 @@ import ReactMarkdown, { type Components } from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { Waveform } from '@/components/common/waveform'
 import { ImageLightbox, ImageWithLightbox } from '@/components/image-lightbox'
+import { useIsClient } from '@/hooks/use-is-client'
 import { useLightbox } from '@/hooks/use-lightbox'
 import { extractImagesFromMarkdown, parseTimeStamps } from '@/lib/markdown'
 import { cn } from '@/lib/utils'
@@ -125,6 +126,7 @@ function EpisodeDetailDesktop({
   content,
   markdownComponents,
 }: EpisodeDetailDesktopProps) {
+  const isClient = useIsClient()
   const { t, i18n } = useTranslation()
   const publishedDate = new Date(episode.published)
   const pageStore = getPageStore()
@@ -204,7 +206,12 @@ function EpisodeDetailDesktop({
           </div>
         </div>
 
-        <div className='episode-content'>
+        <div
+          className={cn(
+            'episode-content transition-opacity duration-300',
+            isClient ? 'opacity-100' : 'opacity-0',
+          )}
+        >
           <ReactMarkdown
             remarkPlugins={[remarkGfm]}
             components={markdownComponents}
@@ -227,6 +234,7 @@ function EpisodeDetailMobile({
   content,
   markdownComponents,
 }: EpisodeDetailMobileProps) {
+  const isClient = useIsClient()
   const { t, i18n } = useTranslation()
   const publishedDate = new Date(episode.published)
   const pageStore = getPageStore()
@@ -305,7 +313,12 @@ function EpisodeDetailMobile({
           </div>
         </div>
 
-        <div className='episode-content'>
+        <div
+          className={cn(
+            'episode-content transition-opacity duration-300',
+            isClient ? 'opacity-100' : 'opacity-0',
+          )}
+        >
           <ReactMarkdown
             remarkPlugins={[remarkGfm]}
             components={markdownComponents}

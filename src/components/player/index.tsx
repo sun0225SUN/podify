@@ -20,7 +20,7 @@ export function Player() {
     <div
       className={cn(
         'fixed right-0 bottom-0 left-0 z-50 md:left-96 lg:left-112',
-        'border-t bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60',
+        'border-t bg-background/5 backdrop-blur-xs',
         'transition-all duration-300 ease-in-out',
         currentEpisode
           ? 'pointer-events-auto translate-y-0 opacity-100'

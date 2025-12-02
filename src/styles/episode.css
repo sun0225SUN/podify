@@ -72,7 +72,7 @@
 }
 
 .episode-content ul {
-  list-style-type: "– ";
+  list-style-type: disc;
 }
 
 .episode-content ol {

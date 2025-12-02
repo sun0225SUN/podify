@@ -36,12 +36,14 @@ function PodcastInfoDesktop({ podcastInfo }: PodcastInfoContentProps) {
   const { t } = useTranslation()
   const [isExpanded, setIsExpanded] = useState(false)
   const { title, description, cover, link } = podcastInfo
+
   const shouldTruncate = description.length > site.defaultDescriptionLength
-  const displayDescription = isExpanded
-    ? description
-    : shouldTruncate
-      ? `${description.slice(0, site.defaultDescriptionLength)}...`
-      : description
+
+  let displayDescription = description
+
+  if (shouldTruncate && !isExpanded) {
+    displayDescription = `${description.slice(0, site.defaultDescriptionLength)}...`
+  }
 
   return (
     <div className={cn('hidden md:flex', 'h-full flex-col gap-12 p-12')}>
