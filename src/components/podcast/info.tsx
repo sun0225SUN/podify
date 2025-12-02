@@ -6,6 +6,7 @@ import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { Waveform } from '@/components/common/waveform'
 import { TinyWaveFormIcon } from '@/components/common/waveform-icon'
+import { CardBody, CardContainer, CardItem } from '@/components/ui/3d-card'
 import { podcast, site } from '@/config/index'
 import { cn } from '@/lib/utils'
 import { getPodcastStore } from '@/stores/podcast-store'
@@ -44,21 +45,33 @@ function PodcastInfoDesktop({ podcastInfo }: PodcastInfoContentProps) {
 
   return (
     <div className={cn('hidden md:flex', 'h-full flex-col gap-12 p-12')}>
-      <Link
-        to={link}
-        search={{ page: 1 }}
-        className='block aspect-square w-full'
+      <CardContainer
+        containerClassName='block w-full p-0'
+        className='h-full w-full'
       >
-        <img
-          className='h-full w-full rounded-2xl object-cover'
-          src={cover}
-          referrerPolicy='no-referrer'
-          loading='lazy'
-          alt='cover'
-          width={320}
-          height={320}
-        />
-      </Link>
+        <CardBody className='h-full w-full p-0'>
+          <CardItem
+            translateZ='50'
+            className='w-full'
+          >
+            <Link
+              to={link}
+              search={{ page: 1 }}
+              className='block aspect-square w-full'
+            >
+              <img
+                className='h-full w-full rounded-2xl object-cover shadow-xl'
+                src={cover}
+                referrerPolicy='no-referrer'
+                loading='lazy'
+                alt='cover'
+                width={320}
+                height={320}
+              />
+            </Link>
+          </CardItem>
+        </CardBody>
+      </CardContainer>
 
       <div className='text-left font-bold text-xl'>{title}</div>
 
