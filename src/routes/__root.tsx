@@ -74,6 +74,10 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
         name: 'twitter:site',
         content: site.seo.twitterHandle || '',
       },
+      {
+        name: 'referrer',
+        content: 'no-referrer',
+      },
     ],
     links: [
       {
