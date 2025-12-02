@@ -28,7 +28,7 @@ export function PlayerLayoutDesktop() {
         <div className='hidden xl:block'>
           <EpisodeTitle />
         </div>
-        <div className='-translate-x-1/2 -translate-y-1/2 absolute top-1/2 left-1/2 flex items-center gap-4'>
+        <div className='-translate-x-1/2 -translate-y-1/2 absolute top-1/2 left-1/2 flex items-center gap-10'>
           <SeekBackward className='size-10' />
           <Play
             tooltipPlacement='top start'

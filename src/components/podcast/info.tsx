@@ -9,7 +9,7 @@ import { TinyWaveFormIcon } from '@/components/common/waveform-icon'
 import { CardBody, CardContainer, CardItem } from '@/components/ui/3d-card'
 import { podcast, site } from '@/config/index'
 import { cn } from '@/lib/utils'
-import { getPodcastStore } from '@/stores/podcast-store'
+import { podcastStore } from '@/stores/podcast-store'
 import type { PodcastRSSInfo } from '@/types/podcast'
 
 interface PodcastInfoContentProps {
@@ -17,7 +17,6 @@ interface PodcastInfoContentProps {
 }
 
 export function PodcastInfo() {
-  const podcastStore = getPodcastStore()
   const podcastInfo = useStore(podcastStore, (state) => state.podcastInfo)
 
   if (!podcastInfo) {

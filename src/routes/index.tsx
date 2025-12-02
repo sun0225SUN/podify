@@ -4,7 +4,7 @@ import { Podcast } from '@/components/podcast'
 import { site } from '@/config/index'
 import { getEpisodes, getPodcast, mergePodcastInfo } from '@/lib/podcast'
 import {
-  getPodcastStore,
+  podcastStore,
   setEpisodes,
   setPodcastInfo,
 } from '@/stores/podcast-store'
@@ -97,11 +97,10 @@ function App() {
   const search = Route.useSearch()
   const page = search.page || 1
 
-  const store = getPodcastStore()
-  if (podcastInfo && store.state.podcastInfo !== podcastInfo) {
+  if (podcastInfo && podcastStore.state.podcastInfo !== podcastInfo) {
     setPodcastInfo(podcastInfo)
   }
-  if (episodes && store.state.episodes !== episodes) {
+  if (episodes && podcastStore.state.episodes !== episodes) {
     setEpisodes(episodes)
   }
 

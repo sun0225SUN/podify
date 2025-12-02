@@ -2,7 +2,7 @@ import { Link } from '@tanstack/react-router'
 import { useStore } from '@tanstack/react-store'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
-import { getPodcastStore } from '@/stores/podcast-store'
+import { podcastStore } from '@/stores/podcast-store'
 import type { Episode } from '@/types/podcast'
 
 interface EpisodeNavigationProps {
@@ -13,7 +13,6 @@ export function EpisodeNavigation({
   currentEpisodeId,
 }: EpisodeNavigationProps) {
   const { t } = useTranslation()
-  const podcastStore = getPodcastStore()
   const episodes = useStore(podcastStore, (state) => state.episodes) || []
 
   const currentIndex = episodes.findIndex((ep) => ep.id === currentEpisodeId)

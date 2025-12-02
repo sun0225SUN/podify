@@ -6,45 +6,21 @@ export type PodcastStore = {
   episodes: Episode[]
 }
 
-let podcastStore: Store<PodcastStore> | null = null
-
-const createPodcastStore = (): Store<PodcastStore> => {
-  return new Store<PodcastStore>({
-    podcastInfo: null,
-    episodes: [],
-  })
-}
-
-export function initPodcastStore(): Store<PodcastStore> {
-  if (!podcastStore) {
-    podcastStore = createPodcastStore()
-  }
-  return podcastStore
-}
-
-export function getPodcastStore(): Store<PodcastStore> {
-  if (!podcastStore) return initPodcastStore()
-
-  return podcastStore
-}
+export const podcastStore = new Store<PodcastStore>({
+  podcastInfo: null,
+  episodes: [],
+})
 
 export function setPodcastInfo(podcastInfo: PodcastRSSInfo) {
-  const store = getPodcastStore()
-  store.setState((state) => ({
+  podcastStore.setState((state) => ({
     ...state,
     podcastInfo,
   }))
 }
 
 export function setEpisodes(episodes: Episode[]) {
-  const store = getPodcastStore()
-  store.setState((state) => ({
+  podcastStore.setState((state) => ({
     ...state,
     episodes,
   }))
-}
-
-export function getPodcastInfo(): PodcastRSSInfo | null {
-  const store = getPodcastStore()
-  return store.state.podcastInfo
 }

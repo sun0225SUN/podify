@@ -3,7 +3,7 @@ import { EpisodeDetail } from '@/components/episodes/detail'
 import { PodcastLayout } from '@/components/podcast/layout'
 import { site } from '@/config/index'
 import { getEpisodes, getPodcast, mergePodcastInfo } from '@/lib/podcast'
-import { getPodcastStore, setPodcastInfo } from '@/stores/podcast-store'
+import { podcastStore, setPodcastInfo } from '@/stores/podcast-store'
 
 export const Route = createFileRoute('/episodes/$episodeId')({
   component: EpisodePage,
@@ -105,8 +105,7 @@ export const Route = createFileRoute('/episodes/$episodeId')({
 function EpisodePage() {
   const { episode, podcastInfo } = Route.useLoaderData()
 
-  const store = getPodcastStore()
-  if (podcastInfo && store.state.podcastInfo !== podcastInfo) {
+  if (podcastInfo && podcastStore.state.podcastInfo !== podcastInfo) {
     setPodcastInfo(podcastInfo)
   }
 
