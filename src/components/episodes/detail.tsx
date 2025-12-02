@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next'
 import ReactMarkdown, { type Components } from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { Waveform } from '@/components/common/waveform'
+import { EpisodeNavigation } from '@/components/episodes/navigation'
 import { ImageLightbox, ImageWithLightbox } from '@/components/image-lightbox'
 import { useIsClient } from '@/hooks/use-is-client'
 import { useLightbox } from '@/hooks/use-lightbox'
@@ -219,6 +220,8 @@ function EpisodeDetailDesktop({
             {content}
           </ReactMarkdown>
         </div>
+
+        <EpisodeNavigation currentEpisodeId={episode.id} />
       </article>
     </section>
   )
@@ -326,6 +329,8 @@ function EpisodeDetailMobile({
             {content}
           </ReactMarkdown>
         </div>
+
+        <EpisodeNavigation currentEpisodeId={episode.id} />
       </article>
     </section>
   )

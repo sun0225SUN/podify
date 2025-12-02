@@ -3,7 +3,11 @@ import { z } from 'zod'
 import { Podcast } from '@/components/podcast'
 import { site } from '@/config/index'
 import { getEpisodes, getPodcast, mergePodcastInfo } from '@/lib/podcast'
-import { getPodcastStore, setPodcastInfo } from '@/stores/podcast-store'
+import {
+  getPodcastStore,
+  setEpisodes,
+  setPodcastInfo,
+} from '@/stores/podcast-store'
 
 const searchSchema = z.object({
   page: z.number().int().positive().optional(),
@@ -17,6 +21,7 @@ export const Route = createFileRoute('/')({
     const rssInfo = await getPodcast()
     const podcastInfo = mergePodcastInfo(rssInfo)
     setPodcastInfo(podcastInfo)
+    setEpisodes(episodes)
     return { episodes, podcastInfo }
   },
   head: ({ loaderData }) => {
@@ -95,6 +100,9 @@ function App() {
   const store = getPodcastStore()
   if (podcastInfo && store.state.podcastInfo !== podcastInfo) {
     setPodcastInfo(podcastInfo)
+  }
+  if (episodes && store.state.episodes !== episodes) {
+    setEpisodes(episodes)
   }
 
   return (

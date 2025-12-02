@@ -1,8 +1,9 @@
 import { Store } from '@tanstack/store'
-import type { PodcastRSSInfo } from '@/types/podcast'
+import type { Episode, PodcastRSSInfo } from '@/types/podcast'
 
 export type PodcastStore = {
   podcastInfo: PodcastRSSInfo | null
+  episodes: Episode[]
 }
 
 let podcastStore: Store<PodcastStore> | null = null
@@ -10,6 +11,7 @@ let podcastStore: Store<PodcastStore> | null = null
 const createPodcastStore = (): Store<PodcastStore> => {
   return new Store<PodcastStore>({
     podcastInfo: null,
+    episodes: [],
   })
 }
 
@@ -28,8 +30,17 @@ export function getPodcastStore(): Store<PodcastStore> {
 
 export function setPodcastInfo(podcastInfo: PodcastRSSInfo) {
   const store = getPodcastStore()
-  store.setState(() => ({
+  store.setState((state) => ({
+    ...state,
     podcastInfo,
+  }))
+}
+
+export function setEpisodes(episodes: Episode[]) {
+  const store = getPodcastStore()
+  store.setState((state) => ({
+    ...state,
+    episodes,
   }))
 }
 

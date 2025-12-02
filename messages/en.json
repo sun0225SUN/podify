@@ -24,7 +24,9 @@
     "showNotes": "Show notes",
     "back": "Back",
     "playEpisode": "Play episode",
-    "pauseEpisode": "Pause episode"
+    "pauseEpisode": "Pause episode",
+    "previous": "Previous Episode",
+    "next": "Next Episode"
   },
   "pagination": {
     "previous": "Previous",
