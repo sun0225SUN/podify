@@ -9,7 +9,7 @@ import { CommandMenu } from '@/components/cmdk'
 import { LanguageProvider } from '@/components/language/provider'
 import { Player } from '@/components/player'
 import { ThemeProvider } from '@/components/theme/provider'
-import { site } from '@/config'
+import { site } from '@/config/index'
 import { env } from '@/env'
 import {
   defaultLocale,

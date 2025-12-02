@@ -3,7 +3,7 @@ import { Github } from 'lucide-react'
 import { Fragment } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ThemeToggle } from '@/components/theme/toggle'
-import { podcast } from '@/config'
+import { podcast } from '@/config/index'
 
 export function PodcastAside() {
   const { t } = useTranslation()
@@ -36,7 +36,7 @@ export function PodcastAside() {
           ))}
         </span>
       </section>
-      <section className='flex flex-col items-center gap-5'>
+      <section className='flex flex-col items-center gap-8'>
         <a
           href='https://github.com/sun0225SUN/podify'
           target='_blank'

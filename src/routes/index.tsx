@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { z } from 'zod'
 import { Podcast } from '@/components/podcast'
-import { site } from '@/config'
+import { site } from '@/config/index'
 import { getEpisodes, getPodcast, mergePodcastInfo } from '@/lib/podcast'
 import { getPodcastStore, setPodcastInfo } from '@/stores/podcast-store'
 

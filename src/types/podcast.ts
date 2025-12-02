@@ -1,3 +1,5 @@
+import type { ComponentType, SVGProps } from 'react'
+
 export interface Podcast {
   base: PodcastBase
   hosts: HostProps[]
@@ -22,9 +24,10 @@ export interface HostProps {
 }
 
 export interface PlatformProps {
-  id: string
   name: string
   link: string
+  icon: ComponentType<SVGProps<SVGSVGElement>>
+  colorClass?: string
 }
 
 export interface PodcastBase {

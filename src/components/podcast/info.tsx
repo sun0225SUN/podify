@@ -1,23 +1,15 @@
 import { Link } from '@tanstack/react-router'
 import { useStore } from '@tanstack/react-store'
-import { Podcast, Youtube } from 'lucide-react'
-import type { ComponentType, SVGProps } from 'react'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { Waveform } from '@/components/common/waveform'
 import { TinyWaveFormIcon } from '@/components/common/waveform-icon'
-import { SpotifyIcon, XYZIcon } from '@/components/icons'
-import { podcast, site } from '@/config'
+import { podcast, site } from '@/config/index'
 import { cn } from '@/lib/utils'
 import { getPodcastStore } from '@/stores/podcast-store'
 import type { PodcastRSSInfo } from '@/types/podcast'
-
-type PlatformConfig = {
-  icon: ComponentType<SVGProps<SVGSVGElement>>
-  colorClass: string
-}
 
 interface PodcastInfoContentProps {
   podcastInfo: PodcastRSSInfo
@@ -42,7 +34,7 @@ export function PodcastInfo() {
 function PodcastInfoDesktop({ podcastInfo }: PodcastInfoContentProps) {
   const { t } = useTranslation()
   const [isExpanded, setIsExpanded] = useState(false)
-  const { title, description, cover } = podcastInfo
+  const { title, description, cover, link } = podcastInfo
   const shouldTruncate = description.length > site.defaultDescriptionLength
   const displayDescription = isExpanded
     ? description
@@ -53,7 +45,7 @@ function PodcastInfoDesktop({ podcastInfo }: PodcastInfoContentProps) {
   return (
     <div className={cn('hidden md:flex', 'h-full flex-col gap-12 p-12')}>
       <Link
-        to='/'
+        to={link}
         search={{ page: 1 }}
         className='block aspect-square w-full'
       >
@@ -126,19 +118,16 @@ function PodcastInfoDesktop({ podcastInfo }: PodcastInfoContentProps) {
 
             <div className='flex flex-col gap-6'>
               {podcast.platforms.map((platform) => {
-                const config = platformIcons[platform.id]
-                if (!config) return null
-
-                const Icon = config.icon
+                const Icon = platform.icon
                 return (
                   <a
-                    key={platform.id}
+                    key={platform.name}
                     href={platform.link}
                     target='_blank'
                     rel='noopener noreferrer'
                     className='flex cursor-pointer items-center gap-2'
                   >
-                    <Icon className={cn('h-6 w-6', config.colorClass)} />
+                    <Icon className={cn('h-6 w-6', platform.colorClass)} />
                     <span>{platform.name}</span>
                   </a>
                 )
@@ -180,20 +169,17 @@ function PodcastInfoMobile({ podcastInfo }: PodcastInfoContentProps) {
       {podcast.platforms && podcast.platforms.length > 0 && (
         <div className='flex items-center gap-6'>
           {podcast.platforms.map((platform) => {
-            const config = platformIcons[platform.id]
-            if (!config) return null
-
-            const Icon = config.icon
+            const Icon = platform.icon
             return (
               <a
-                key={platform.id}
+                key={platform.name}
                 href={platform.link}
                 target='_blank'
                 rel='noopener noreferrer'
                 className='transition-opacity hover:opacity-70'
                 aria-label={platform.name}
               >
-                <Icon className={cn('h-8 w-8', config.colorClass)} />
+                <Icon className={cn('h-8 w-8', platform.colorClass)} />
               </a>
             )
           })}
@@ -202,28 +188,9 @@ function PodcastInfoMobile({ podcastInfo }: PodcastInfoContentProps) {
 
       <div className='relative w-full py-2'>
         <div className='absolute inset-0 flex items-center'>
-          <div className='h-px w-full bg-gradient-to-r from-transparent via-border to-transparent' />
+          <div className='h-px w-full bg-linear-to-r from-transparent via-border to-transparent' />
         </div>
       </div>
     </div>
   )
-}
-
-const platformIcons: Record<string, PlatformConfig> = {
-  xyz: {
-    icon: XYZIcon,
-    colorClass: 'text-blue-500 hover:text-blue-600',
-  },
-  youtube: {
-    icon: Youtube,
-    colorClass: 'text-red-500 hover:text-red-600',
-  },
-  spotify: {
-    icon: SpotifyIcon,
-    colorClass: 'text-green-500 hover:text-green-600',
-  },
-  apple: {
-    icon: Podcast,
-    colorClass: 'text-purple-500 hover:text-purple-600',
-  },
 }

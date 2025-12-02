@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { Waveform } from '@/components/common/waveform'
 import { EpisodeItem } from '@/components/episodes/episode-item'
 import { EpisodesPagination } from '@/components/episodes/pagination'
-import { site } from '@/config'
+import { site } from '@/config/index'
 import { getPageStore } from '@/stores/page-store'
 import type { Episode } from '@/types/podcast'
 
@@ -49,7 +49,7 @@ function EpisodesDesktop({ episodes, currentPage }: EpisodesProps) {
       </div>
 
       {episodes.length === 0 ? (
-        <p className='px-10 text-muted-foreground lg:px-20'>
+        <p className='py-10 text-center text-muted-foreground'>
           {t('episodes.noEpisodes')}
         </p>
       ) : (
@@ -85,7 +85,7 @@ function EpisodesMobile({ episodes, currentPage }: EpisodesProps) {
   return (
     <div className='flex w-full flex-col md:hidden'>
       {episodes.length === 0 ? (
-        <p className='px-4 py-8 text-muted-foreground'>
+        <p className='py-8 text-center text-muted-foreground'>
           {t('episodes.noEpisodes')}
         </p>
       ) : (

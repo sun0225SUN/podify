@@ -1,7 +1,7 @@
 import { createFileRoute, notFound } from '@tanstack/react-router'
 import { EpisodeDetail } from '@/components/episodes/detail'
 import { PodcastLayout } from '@/components/podcast/layout'
-import { site } from '@/config'
+import { site } from '@/config/index'
 import { getEpisodes, getPodcast, mergePodcastInfo } from '@/lib/podcast'
 import { getPodcastStore, setPodcastInfo } from '@/stores/podcast-store'
 

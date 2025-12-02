@@ -1,7 +1,7 @@
 import { createServerFn } from '@tanstack/react-start'
 import { XMLParser } from 'fast-xml-parser'
 import TurndownService from 'turndown'
-import { podcast } from '@/config'
+import { podcast } from '@/config/index'
 import { env } from '@/env'
 import type { Episode, PodcastRSSInfo } from '@/types/podcast'
 

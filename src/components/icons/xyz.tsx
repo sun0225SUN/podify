@@ -4,7 +4,7 @@ export function XYZIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
-      viewBox='0 0 1024 1024'
+      viewBox='85 170 854 687'
       fill='currentColor'
       xmlns='http://www.w3.org/2000/svg'
       aria-hidden='true'
