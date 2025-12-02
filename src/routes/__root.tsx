@@ -22,6 +22,7 @@ import '@/styles/view-transition.css'
 import '@vidstack/react/player/styles/base.css'
 import '@vidstack/react/player/styles/default/theme.css'
 import '@vidstack/react/player/styles/default/layouts/audio.css'
+import { NoiseBg } from '@/components/common/noise-bg'
 
 interface MyRouterContext {
   detectedLocale?: string
@@ -163,6 +164,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
             {children}
             <Player />
             <CommandMenu />
+            <NoiseBg />
           </ThemeProvider>
         </LanguageProvider>
         <Scripts />

@@ -41,7 +41,7 @@ function EpisodesDesktop({ episodes, currentPage }: EpisodesProps) {
 
   return (
     <div className='hidden w-full flex-col md:flex'>
-      <div className='sticky top-0 z-10 border-border border-b bg-background'>
+      <div className='sticky top-0 z-10 border-border border-b'>
         <Waveform className='h-24 w-full' />
         <h1 className='absolute inset-0 top-10 px-10 font-bold text-2xl lg:px-20'>
           {t('episodes.title')}

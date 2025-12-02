@@ -112,7 +112,7 @@ function EpisodeDetailDesktop({
 
   return (
     <section className='hidden w-full flex-col md:flex'>
-      <div className='sticky top-0 z-10 border-border border-b bg-background'>
+      <div className='sticky top-0 z-10 border-border border-b'>
         <Waveform className='h-24 w-full' />
         <Link
           to='/'
@@ -133,7 +133,7 @@ function EpisodeDetailDesktop({
             type='button'
             onClick={handlePlayPause}
             className={cn(
-              'group mt-2 flex h-18 w-18 flex-shrink-0 items-center justify-center',
+              'group mt-2 flex h-18 w-18 shrink-0 items-center justify-center',
               'rounded-full bg-theme',
               'shadow-lg shadow-theme/20',
               'transition-all hover:scale-105 hover:bg-theme-hover hover:shadow-theme/30 hover:shadow-xl',

@@ -8,7 +8,7 @@ interface PodcastLayoutProps {
 export function PodcastLayout({ children }: PodcastLayoutProps) {
   return (
     <>
-      <div className='hidden md:fixed md:inset-0 md:flex md:overflow-hidden md:bg-background'>
+      <div className='hidden md:fixed md:inset-0 md:flex md:overflow-hidden'>
         <aside className='flex h-full w-16 shrink-0 flex-col overflow-y-auto overscroll-y-contain border-border border-r'>
           <PodcastAside />
         </aside>
