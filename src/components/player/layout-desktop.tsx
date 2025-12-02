@@ -5,7 +5,7 @@ import { SeekBackward, SeekForward } from '@/components/player/seek'
 import { Speed } from '@/components/player/speed'
 import { CurrentTime, Duration } from '@/components/player/time-info'
 import { TimeSliders } from '@/components/player/time-sliders'
-import { Mute, Volume } from '@/components/player/volume'
+import { Volume } from '@/components/player/volume'
 import { cn } from '@/lib/utils'
 
 import styles from '@/styles/player.module.css'
@@ -18,33 +18,32 @@ export function PlayerLayoutDesktop() {
         styles.controls,
       )}
     >
+      <Controls.Group className='flex h-full w-full items-center gap-3'>
+        <CurrentTime />
+        <TimeSliders />
+        <Duration />
+      </Controls.Group>
+
       <Controls.Group className='relative flex min-h-14 w-full items-center justify-between'>
         <div className='hidden xl:block'>
           <EpisodeTitle />
         </div>
         <div className='-translate-x-1/2 -translate-y-1/2 absolute top-1/2 left-1/2 flex items-center gap-4'>
-          <SeekBackward />
+          <SeekBackward className='size-10' />
           <Play
             tooltipPlacement='top start'
-            className='size-12'
+            className='size-14'
           />
-          <SeekForward />
+          <SeekForward className='size-10' />
         </div>
         <div className='hidden xl:block'>
           <div className='flex items-center gap-4'>
             <Speed />
             <div className='flex items-center'>
-              <Mute />
               <Volume />
             </div>
           </div>
         </div>
-      </Controls.Group>
-
-      <Controls.Group className='flex h-full w-full items-center gap-3'>
-        <CurrentTime />
-        <TimeSliders />
-        <Duration />
       </Controls.Group>
     </Controls.Root>
   )

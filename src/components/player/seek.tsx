@@ -1,8 +1,9 @@
 import { SeekButton, Tooltip } from '@vidstack/react'
 import { SeekBackward15Icon, SeekForward15Icon } from '@vidstack/react/icons'
 import { useTranslation } from 'react-i18next'
+import { cn } from '@/lib/utils'
 
-export function SeekForward() {
+export function SeekForward({ className }: { className?: string }) {
   const { t } = useTranslation()
 
   return (
@@ -13,11 +14,11 @@ export function SeekForward() {
           seconds={15}
           data-umami-event='seek-forward'
         >
-          <SeekForward15Icon className='size-6' />
+          <SeekForward15Icon className={cn('size-8', className)} />
         </SeekButton>
       </Tooltip.Trigger>
       <Tooltip.Content
-        className='fade-out slide-out-to-bottom-2 data-[visible]:fade-in data-[visible]:slide-in-from-bottom-4 z-10 parent-data-[open]:hidden animate-out rounded-sm bg-black/90 px-2 py-0.5 font-medium text-sm text-white data-[visible]:animate-in'
+        className='fade-out slide-out-to-bottom-2 data-visible:fade-in data-visible:slide-in-from-bottom-4 z-10 parent-data-[open]:hidden animate-out rounded-sm bg-black/90 px-2 py-0.5 font-medium text-sm text-white data-[visible]:animate-in'
         placement='top'
       >
         {t('player.seekForward')}
@@ -26,7 +27,7 @@ export function SeekForward() {
   )
 }
 
-export function SeekBackward() {
+export function SeekBackward({ className }: { className?: string }) {
   const { t } = useTranslation()
 
   return (
@@ -37,11 +38,11 @@ export function SeekBackward() {
           seconds={-15}
           data-umami-event='seek-backward'
         >
-          <SeekBackward15Icon className='size-6' />
+          <SeekBackward15Icon className={cn('size-8', className)} />
         </SeekButton>
       </Tooltip.Trigger>
       <Tooltip.Content
-        className='fade-out slide-out-to-bottom-2 data-[visible]:fade-in data-[visible]:slide-in-from-bottom-4 z-10 parent-data-[open]:hidden animate-out rounded-sm bg-black/90 px-2 py-0.5 font-medium text-sm text-white data-[visible]:animate-in'
+        className='fade-out slide-out-to-bottom-2 data-visible:fade-in data-visible:slide-in-from-bottom-4 z-10 parent-data-[open]:hidden animate-out rounded-sm bg-black/90 px-2 py-0.5 font-medium text-sm text-white data-[visible]:animate-in'
         placement='top'
       >
         {t('player.seekBackward')}
