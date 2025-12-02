@@ -5,6 +5,7 @@ import { EpisodeItem } from '@/components/episodes/episode-item'
 import { EpisodesPagination } from '@/components/episodes/pagination'
 import { site } from '@/config/index'
 import { getPageStore } from '@/stores/page-store'
+import { setInitialEpisode } from '@/stores/player-store'
 import type { Episode } from '@/types/podcast'
 
 interface EpisodesProps {
@@ -17,6 +18,12 @@ export function Episodes({ episodes, currentPage }: EpisodesProps) {
     const pageStore = getPageStore()
     pageStore.setState(() => ({ currentPage }))
   }, [currentPage])
+
+  useEffect(() => {
+    if (episodes.length > 0) {
+      setInitialEpisode(episodes[0])
+    }
+  }, [episodes])
 
   return (
     <>
@@ -41,7 +48,7 @@ function EpisodesDesktop({ episodes, currentPage }: EpisodesProps) {
 
   return (
     <div className='hidden w-full flex-col md:flex'>
-      <div className='sticky top-0 z-10 border-border border-b'>
+      <div className='sticky top-0 z-10 border-border border-b bg-background/5 backdrop-blur-xs'>
         <Waveform className='h-24 w-full' />
         <h1 className='absolute inset-0 top-10 px-10 font-bold text-2xl lg:px-20'>
           {t('episodes.title')}

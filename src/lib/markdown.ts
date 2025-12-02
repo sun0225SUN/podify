@@ -24,3 +24,13 @@ export function extractImagesFromMarkdown(content: string): ImageInfo[] {
 
   return matches
 }
+
+/**
+ * Parse timestamps from content and wrap them in a custom link format
+ *
+ * @param content - Markdown content string
+ * @returns Content with timestamps wrapped in links
+ */
+export function parseTimeStamps(content: string): string {
+  return content.replace(/(^|\s)(\d{1,2}:\d{2}(?::\d{2})?)/g, '$1[$2](#t=$2)')
+}

@@ -62,7 +62,6 @@ export function ImageLightbox({
     onNext: handleNext,
   })
 
-  // Handle keyboard escape key
   useEffect(() => {
     if (!open) return
 
@@ -76,7 +75,6 @@ export function ImageLightbox({
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [open, onClose])
 
-  // Determine if dark mode is active
   const isDark = useMemo(() => {
     if (!isClient) return false
     if (theme === 'system') {
@@ -140,7 +138,6 @@ export function ImageLightbox({
         onTouchEnd={handleTouchEnd}
       />
 
-      {/* Caption */}
       {currentImage.alt && (
         <div
           className={cn(

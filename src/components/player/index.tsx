@@ -1,7 +1,6 @@
 import { useStore } from '@tanstack/react-store'
 import {
   MediaPlayer,
-  type MediaPlayerInstance,
   MediaProvider,
   useMediaPlayer,
   useMediaState,
@@ -10,44 +9,40 @@ import { useEffect, useRef } from 'react'
 import { PlayerLayoutDesktop } from '@/components/player/layout-desktop'
 import { PlayerLayoutMobile } from '@/components/player/layout-mobile'
 import { cn } from '@/lib/utils'
-import {
-  getPlayerStore,
-  registerPlayerInstance,
-  setIsPlaying,
-} from '@/stores/player-store'
+import { getPlayerStore, resetSeek, setIsPlaying } from '@/stores/player-store'
 import type { Episode } from '@/types/podcast'
 
 export function Player() {
-  const playerRef = useRef<MediaPlayerInstance>(null)
   const playerStore = getPlayerStore()
   const currentEpisode = useStore(playerStore, (state) => state.currentEpisode)
-  const hasPlayer = currentEpisode !== null
 
   return (
     <div
       className={cn(
-        'fixed right-0 bottom-0 left-0 z-50 md:left-[24rem] lg:left-[28rem]',
-        'border-t bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60',
-        'transition-opacity duration-300',
-        hasPlayer
-          ? 'pointer-events-auto opacity-100'
-          : 'pointer-events-none opacity-0',
+        'fixed right-0 bottom-0 left-0 z-50 md:left-96 lg:left-112',
+        'border-t bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60',
+        'transition-all duration-300 ease-in-out',
+        currentEpisode
+          ? 'pointer-events-auto translate-y-0 opacity-100'
+          : 'pointer-events-none translate-y-full opacity-0',
       )}
     >
-      <MediaPlayer
-        ref={playerRef}
-        src={currentEpisode?.audio.src || ''}
-        viewType='audio'
-        streamType='on-demand'
-        logLevel='warn'
-        playsInline
-        title={currentEpisode?.title || ''}
-      >
-        <MediaProvider />
-        <PlayerContent />
-        <PlayerLayoutDesktop />
-        <PlayerLayoutMobile />
-      </MediaPlayer>
+      {currentEpisode && (
+        <MediaPlayer
+          key={currentEpisode.id}
+          src={currentEpisode.audio.src}
+          viewType='audio'
+          streamType='on-demand'
+          logLevel='warn'
+          playsInline
+          title={currentEpisode.title}
+        >
+          <MediaProvider />
+          <PlayerContent />
+          <PlayerLayoutDesktop />
+          <PlayerLayoutMobile />
+        </MediaPlayer>
+      )}
     </div>
   )
 }
@@ -57,17 +52,11 @@ function PlayerContent() {
   const playerStore = getPlayerStore()
   const currentEpisode = useStore(playerStore, (state) => state.currentEpisode)
   const isPlaying = useStore(playerStore, (state) => state.isPlaying)
+  const seekTime = useStore(playerStore, (state) => state.seekTime)
   const canPlay = useMediaState('canPlay')
   const paused = useMediaState('paused')
   const previousEpisodeRef = useRef<Episode | null>(null)
   const isEpisodeChangingRef = useRef(false)
-
-  // Register player instance
-  useEffect(() => {
-    if (player) {
-      registerPlayerInstance(player)
-    }
-  }, [player])
 
   // Listen to player events and sync to store
   useEffect(() => {
@@ -100,35 +89,19 @@ function PlayerContent() {
     }
   }, [player])
 
-  // Detect episode change
+  // Handle playback state
   useEffect(() => {
-    if (currentEpisode?.id !== previousEpisodeRef.current?.id) {
+    if (!player || !currentEpisode) return
+    if (currentEpisode.id !== previousEpisodeRef.current?.id) {
       isEpisodeChangingRef.current = true
       previousEpisodeRef.current = currentEpisode
     }
-  }, [currentEpisode])
 
-  // Handle playback when media is ready
-  useEffect(() => {
-    if (!player || !canPlay) return
-
-    // Clear episode changing flag when ready
-    if (isEpisodeChangingRef.current) {
+    if (canPlay && isEpisodeChangingRef.current) {
       isEpisodeChangingRef.current = false
     }
 
-    // Auto-play when episode changes and isPlaying is true
-    if (isPlaying && player.paused) {
-      player.play().catch((error) => {
-        console.error('Failed to play:', error)
-        setIsPlaying(false)
-      })
-    }
-  }, [player, canPlay, isPlaying])
-
-  // Sync store isPlaying to player state
-  useEffect(() => {
-    if (!player || !currentEpisode || isEpisodeChangingRef.current) return
+    if (isEpisodeChangingRef.current || !canPlay) return
 
     if (isPlaying && player.paused) {
       player.play().catch((error) => {
@@ -138,7 +111,15 @@ function PlayerContent() {
     } else if (!isPlaying && !player.paused) {
       player.pause()
     }
-  }, [player, currentEpisode, isPlaying])
+  }, [player, currentEpisode, isPlaying, canPlay])
+
+  // Handle seek request
+  useEffect(() => {
+    if (player && seekTime !== null) {
+      player.currentTime = seekTime
+      resetSeek()
+    }
+  }, [player, seekTime])
 
   // Space bar shortcut
   useEffect(() => {

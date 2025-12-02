@@ -34,7 +34,7 @@ export function LightboxThumbnails({
           type='button'
           onClick={() => onThumbnailClick(idx)}
           className={cn(
-            'group relative flex-shrink-0 overflow-hidden rounded-lg transition-all duration-300',
+            'group relative shrink-0 overflow-hidden rounded-lg transition-all duration-300',
             idx === currentIndex
               ? 'scale-110 opacity-100'
               : 'opacity-70 hover:scale-105 hover:opacity-100',

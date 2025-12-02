@@ -1,19 +1,19 @@
 import { Store } from '@tanstack/store'
-import type { MediaPlayerInstance } from '@vidstack/react'
 import type { Episode } from '@/types/podcast'
 
 export type PlayerStore = {
   currentEpisode: Episode | null
   isPlaying: boolean
+  seekTime: number | null
 }
 
 let playerStore: Store<PlayerStore> | null = null
-let playerInstance: MediaPlayerInstance | null = null
 
 const createPlayerStore = (): Store<PlayerStore> => {
   return new Store<PlayerStore>({
     currentEpisode: null,
     isPlaying: false,
+    seekTime: null,
   })
 }
 
@@ -35,7 +35,20 @@ export function setCurrentEpisode(episode: Episode) {
   store.setState(() => ({
     currentEpisode: episode,
     isPlaying: true,
+    seekTime: null,
   }))
+}
+
+export function setInitialEpisode(episode: Episode) {
+  const store = getPlayerStore()
+  if (!store.state.currentEpisode) {
+    store.setState((state) => ({
+      ...state,
+      currentEpisode: episode,
+      isPlaying: false,
+      seekTime: null,
+    }))
+  }
 }
 
 export function clearCurrentEpisode() {
@@ -43,6 +56,7 @@ export function clearCurrentEpisode() {
   store.setState(() => ({
     currentEpisode: null,
     isPlaying: false,
+    seekTime: null,
   }))
 }
 
@@ -54,19 +68,12 @@ export function setIsPlaying(isPlaying: boolean) {
   }))
 }
 
-export function registerPlayerInstance(instance: MediaPlayerInstance) {
-  playerInstance = instance
-}
-
 export function play() {
   const store = getPlayerStore()
   store.setState((state) => ({
     ...state,
     isPlaying: true,
   }))
-  if (playerInstance) {
-    playerInstance.play()
-  }
 }
 
 export function pause() {
@@ -75,11 +82,21 @@ export function pause() {
     ...state,
     isPlaying: false,
   }))
-  if (playerInstance) {
-    playerInstance.pause()
-  }
 }
 
-export function getPlayerInstance() {
-  return playerInstance
+export function seek(time: number) {
+  const store = getPlayerStore()
+  store.setState((state) => ({
+    ...state,
+    seekTime: time,
+    isPlaying: true,
+  }))
+}
+
+export function resetSeek() {
+  const store = getPlayerStore()
+  store.setState((state) => ({
+    ...state,
+    seekTime: null,
+  }))
 }

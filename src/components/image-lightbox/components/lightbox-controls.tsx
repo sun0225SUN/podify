@@ -33,7 +33,6 @@ export function LightboxControls({
 
   return (
     <>
-      {/* Previous Button */}
       <button
         type='button'
         onClick={onPrevious}
@@ -47,8 +46,6 @@ export function LightboxControls({
       >
         <ChevronLeft className='size-6' />
       </button>
-
-      {/* Next Button */}
       <button
         type='button'
         onClick={onNext}
@@ -62,8 +59,6 @@ export function LightboxControls({
       >
         <ChevronRight className='size-6' />
       </button>
-
-      {/* Zoom and Close Controls */}
       <div className='absolute top-3 right-4 z-50 flex flex-row gap-5'>
         <button
           type='button'

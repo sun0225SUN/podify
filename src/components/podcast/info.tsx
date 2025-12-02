@@ -75,7 +75,7 @@ function PodcastInfoDesktop({ podcastInfo }: PodcastInfoContentProps) {
 
       <div className='text-left font-bold text-xl'>{title}</div>
 
-      <div className='flex flex-col gap-10'>
+      <div className='flex flex-col gap-10 pb-10'>
         <section className='flex flex-col gap-5'>
           <div className='flex items-center gap-2 font-medium font-mono text-sm'>
             <TinyWaveFormIcon

@@ -1,6 +1,6 @@
 import { Link } from '@tanstack/react-router'
 import { useStore } from '@tanstack/react-store'
-import { Pause, Play } from 'lucide-react'
+import { NotepadText, Pause, Play } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import ReactMarkdown, { type Components } from 'react-markdown'
 import { cn } from '@/lib/utils'
@@ -96,22 +96,20 @@ export function EpisodeItem({ episode, variant }: EpisodeItemProps) {
         {episode.title}
       </Link>
       {episode.description && (
-        <Link
-          to='/episodes/$episodeId'
-          params={{ episodeId: episode.id }}
+        <div
           className={cn(
-            'line-clamp-2 cursor-pointer text-foreground/80 leading-relaxed transition-colors hover:text-theme',
+            'line-clamp-2 cursor-pointer text-foreground/80 leading-relaxed',
             !isDesktop && 'text-sm',
           )}
         >
           <ReactMarkdown components={markdownComponents}>
             {episode.description}
           </ReactMarkdown>
-        </Link>
+        </div>
       )}
       <div
         className={cn(
-          'mt-2 flex items-center font-medium text-theme hover:text-theme-hover',
+          'mt-2 flex items-center font-medium text-theme transition-colors duration-150 hover:text-theme-hover',
           isDesktop ? 'gap-4 text-sm' : 'flex-wrap gap-3 text-xs',
         )}
       >
@@ -125,11 +123,11 @@ export function EpisodeItem({ episode, variant }: EpisodeItemProps) {
         >
           {isCurrentlyPlaying ? (
             <Pause
-              className={cn('flex-shrink-0', isDesktop ? 'size-4' : 'size-3.5')}
+              className={cn('shrink-0', isDesktop ? 'size-4' : 'size-3.5')}
             />
           ) : (
             <Play
-              className={cn('flex-shrink-0', isDesktop ? 'size-4' : 'size-3.5')}
+              className={cn('shrink-0', isDesktop ? 'size-4' : 'size-3.5')}
             />
           )}
           <span>
@@ -140,9 +138,15 @@ export function EpisodeItem({ episode, variant }: EpisodeItemProps) {
         <Link
           to='/episodes/$episodeId'
           params={{ episodeId: episode.id }}
-          className='cursor-pointer font-medium text-theme hover:text-theme-hover'
+          className={cn(
+            'flex cursor-pointer items-center font-medium text-theme transition-colors duration-150 hover:text-theme-hover',
+            isDesktop ? 'gap-2' : 'gap-1.5',
+          )}
         >
-          {t('episodes.showNotes')}
+          <NotepadText
+            className={cn('shrink-0', isDesktop ? 'size-4' : 'size-3.5')}
+          />
+          <p>{t('episodes.showNotes')}</p>
         </Link>
       </div>
     </li>

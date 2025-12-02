@@ -10,14 +10,16 @@ import remarkGfm from 'remark-gfm'
 import { Waveform } from '@/components/common/waveform'
 import { ImageLightbox, ImageWithLightbox } from '@/components/image-lightbox'
 import { useLightbox } from '@/hooks/use-lightbox'
-import { extractImagesFromMarkdown } from '@/lib/markdown'
+import { extractImagesFromMarkdown, parseTimeStamps } from '@/lib/markdown'
 import { cn } from '@/lib/utils'
 import { getPageStore } from '@/stores/page-store'
 import {
   getPlayerStore,
   pause,
   play,
+  seek,
   setCurrentEpisode,
+  setInitialEpisode,
 } from '@/stores/player-store'
 import type { Episode } from '@/types/podcast'
 
@@ -33,21 +35,50 @@ export function EpisodeDetail({ episode }: EpisodeDetailProps) {
     return extractImagesFromMarkdown(content)
   }, [episode.content, episode.description])
 
+  const content = useMemo(() => {
+    return parseTimeStamps(episode.content ?? episode.description ?? '')
+  }, [episode.content, episode.description])
+
   useEffect(() => {
     window.scrollTo({ top: 0 })
-  }, [])
+    setInitialEpisode(episode)
+  }, [episode])
 
   const markdownComponents: Partial<Components> = {
-    a: ({ href, children }) => (
-      <a
-        href={href}
-        target='_blank'
-        rel='noopener noreferrer'
-        className='font-medium text-theme underline transition-colors hover:text-theme-hover'
-      >
-        {children}
-      </a>
-    ),
+    a: ({ href, children }) => {
+      if (href?.startsWith('#t=')) {
+        const timeStr = href.replace('#t=', '')
+        return (
+          <button
+            type='button'
+            className='cursor-pointer border-none bg-transparent p-0 font-medium font-mono text-theme hover:underline'
+            onClick={(e) => {
+              e.preventDefault()
+              const parts = timeStr.split(':').map(Number).reverse()
+              const seconds = parts.reduce(
+                (acc, curr, i) => acc + curr * 60 ** i,
+                0,
+              )
+
+              seek(seconds)
+            }}
+          >
+            {children}
+          </button>
+        )
+      }
+
+      return (
+        <a
+          href={href}
+          target='_blank'
+          rel='noopener noreferrer'
+          className='font-medium text-theme underline transition-colors hover:text-theme-hover'
+        >
+          {children}
+        </a>
+      )
+    },
     img: ({ src, alt }: { src?: string; alt?: string }) => {
       const imageIndex = src ? images.findIndex((img) => img.src === src) : -1
       return (
@@ -65,10 +96,12 @@ export function EpisodeDetail({ episode }: EpisodeDetailProps) {
     <>
       <EpisodeDetailDesktop
         episode={episode}
+        content={content}
         markdownComponents={markdownComponents}
       />
       <EpisodeDetailMobile
         episode={episode}
+        content={content}
         markdownComponents={markdownComponents}
       />
       <ImageLightbox
@@ -83,11 +116,13 @@ export function EpisodeDetail({ episode }: EpisodeDetailProps) {
 }
 
 interface EpisodeDetailDesktopProps extends EpisodeDetailProps {
+  content: string
   markdownComponents: Partial<Components>
 }
 
 function EpisodeDetailDesktop({
   episode,
+  content,
   markdownComponents,
 }: EpisodeDetailDesktopProps) {
   const { t, i18n } = useTranslation()
@@ -112,7 +147,7 @@ function EpisodeDetailDesktop({
 
   return (
     <section className='hidden w-full flex-col md:flex'>
-      <div className='sticky top-0 z-10 border-border border-b'>
+      <div className='sticky top-0 z-10 border-border border-b bg-background/5 backdrop-blur-xs'>
         <Waveform className='h-24 w-full' />
         <Link
           to='/'
@@ -174,7 +209,7 @@ function EpisodeDetailDesktop({
             remarkPlugins={[remarkGfm]}
             components={markdownComponents}
           >
-            {episode.content ?? episode.description}
+            {content}
           </ReactMarkdown>
         </div>
       </article>
@@ -183,11 +218,13 @@ function EpisodeDetailDesktop({
 }
 
 interface EpisodeDetailMobileProps extends EpisodeDetailProps {
+  content: string
   markdownComponents: Partial<Components>
 }
 
 function EpisodeDetailMobile({
   episode,
+  content,
   markdownComponents,
 }: EpisodeDetailMobileProps) {
   const { t, i18n } = useTranslation()
@@ -232,7 +269,7 @@ function EpisodeDetailMobile({
             type='button'
             onClick={handlePlayPause}
             className={cn(
-              'group mt-2 flex h-14 w-14 flex-shrink-0 items-center justify-center',
+              'group mt-2 flex h-14 w-14 shrink-0 items-center justify-center',
               'rounded-full bg-theme',
               'shadow-lg shadow-theme/20',
               'transition-all hover:scale-105 hover:bg-theme-hover hover:shadow-theme/30 hover:shadow-xl',
@@ -273,7 +310,7 @@ function EpisodeDetailMobile({
             remarkPlugins={[remarkGfm]}
             components={markdownComponents}
           >
-            {episode.content ?? episode.description}
+            {content}
           </ReactMarkdown>
         </div>
       </article>
