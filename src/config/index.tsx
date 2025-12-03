@@ -1,4 +1,4 @@
-import { Podcast as PodcastIcon, Youtube } from 'lucide-react'
+import { Podcast as PodcastIcon, Rss as RssIcon, Youtube } from 'lucide-react'
 import { BilibiliIcon, SpotifyIcon, XYZIcon } from '@/components/icons'
 import type { Site } from '@/types/app'
 import type { Podcast } from '@/types/podcast'
@@ -70,6 +70,12 @@ export const podcast: Podcast = {
       link: 'https://www.youtube.com/@sun0225SUN',
       icon: Youtube,
       colorClass: 'text-red-500 hover:text-red-600',
+    },
+    {
+      name: 'RSS',
+      link: 'https://feed.xyzfm.space/eemhg343b8gj',
+      icon: RssIcon,
+      colorClass: 'text-orange-500 hover:text-orange-600',
     },
   ],
 }
