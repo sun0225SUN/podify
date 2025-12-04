@@ -260,7 +260,7 @@ function EpisodeDetailMobile({
 
   return (
     <section className='flex w-full flex-col md:hidden'>
-      <div className='sticky top-0 z-10 h-14 w-full bg-background/95 backdrop-blur-md'>
+      <div className='sticky top-0 z-10 h-14 w-full bg-background/5 backdrop-blur-xs'>
         <Link
           to='/'
           search={{ page: currentPage === 1 ? undefined : currentPage }}

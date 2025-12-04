@@ -1,11 +1,11 @@
 import {
   createRootRouteWithContext,
   HeadContent,
-  Link,
   Scripts,
   useRouteContext,
 } from '@tanstack/react-router'
 import { CommandMenu } from '@/components/cmdk'
+import { NotFound } from '@/components/common/404'
 import { LanguageProvider } from '@/components/language/provider'
 import { Player } from '@/components/player'
 import { ThemeProvider } from '@/components/theme/provider'
@@ -95,25 +95,6 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
   notFoundComponent: NotFound,
   shellComponent: RootDocument,
 })
-
-function NotFound() {
-  return (
-    <div className='flex min-h-screen flex-col items-center justify-center'>
-      <div className='text-center'>
-        <h1 className='mb-4 font-bold text-6xl'>404</h1>
-        <p className='mb-8 text-gray-600 text-xl dark:text-gray-400'>
-          Page not found
-        </p>
-        <Link
-          to='/'
-          className='inline-block rounded-lg bg-theme px-6 py-3 text-white transition-colors hover:bg-theme-hover'
-        >
-          Go back home
-        </Link>
-      </div>
-    </div>
-  )
-}
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   const context = useRouteContext({ from: '__root__' })
