@@ -38,7 +38,7 @@ export function PodcastAside() {
       </section>
       <section className='flex flex-col items-center gap-8'>
         <a
-          href='https://github.com/sun0225SUN/podify'
+          href='https://github.com/shutiao-org/shutiao-life'
           target='_blank'
           className='cursor-pointer'
           rel='noopener'
