@@ -131,9 +131,9 @@ bun run dev
 
 Open: `http://localhost:3000` to see your application.
 
-## 📝 License
+## 🪪 License
 
-This project is licensed under the [MIT](LICENSE).
+Licensed under the [GNU General Public License v3.0](LICENSE).
 
 ## 🤝 Contributing
 
