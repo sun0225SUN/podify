@@ -1,19 +1,18 @@
 
 <div align="center">
   <img src="./readme/images/logo.png" alt="logo" width="100" />
-  <h1>Podify</h1>
+  <h1>Shutiao Life</h1>
 
   [English](/README.md) | 简体中文
 
-  <p>Podify 是一个使用 TanStack Start 构建的精美播客模板</p>
+  <p>Shutiao Life 是一个使用 TanStack Start 构建的精美播客模板</p>
 
-  <img alt="GitHub License" src="https://img.shields.io/github/license/sun0225SUN/podify">
-  <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/sun0225SUN/podify?style=flat">
-  <img alt="GitHub Repo forks" src="https://img.shields.io/github/forks/sun0225SUN/podify?style=flat">
-  <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/sun0225SUN/podify">
-  <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/sun0225SUN/podify">
-  <img alt="Page views" src="https://komarev.com/ghpvc/?username=podify&label=Views&color=orange&style=flat" />
- <img alt="netlify" src="https://api.netlify.com/api/v1/badges/aadf48af-a5c9-431f-9c7f-19cd0b546d6d/deploy-status">
+  <img alt="GitHub License" src="https://img.shields.io/github/license/shutiao-org/shutiao-life">
+  <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/shutiao-org/shutiao-life?style=flat">
+  <img alt="GitHub Repo forks" src="https://img.shields.io/github/forks/shutiao-org/shutiao-life?style=flat">
+  <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/shutiao-org/shutiao-life">
+  <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/shutiao-org/shutiao-life">
+  <img alt="Page views" src="https://komarev.com/ghpvc/?username=shutiao-life&label=Views&color=orange&style=flat" />
 
   <img src="./readme/images/preview.jpeg" alt="screenshot" />
 </div>
