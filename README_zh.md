@@ -32,7 +32,7 @@
 
 - https://shutiao.life
 
-> 欢迎将您的网站添加到列表中 https://github.com/sun0225SUN/podify/issues/1
+> 欢迎将您的网站添加到列表中 https://github.com/shutiao-org/shutiao-life/issues/1
 
 ## 🔨 技术栈
 
@@ -52,6 +52,30 @@
 ## 🍭 社区
 
 - [Telegram](https://t.me/guoqisun)
+
+
+## 👥 贡献
+
+<table>
+	<tbody>
+		<tr>
+        <td align="center">
+            <a href="https://github.com/sun0225SUN">
+                <img src="https://avatars.githubusercontent.com/u/79169717?v=4" width="100;" alt="sun0225SUN"/>
+                <br />
+                <sub><b>Guoqi Sun</b></sub>
+            </a>
+        </td>
+        <td align="center">
+            <a href="https://github.com/AirboZH">
+                <img src="https://avatars.githubusercontent.com/u/50261327?v=4" width="100;" alt="AirboZH"/>
+                <br />
+                <sub><b>AirboZH</b></sub>
+            </a>
+        </td>
+		</tr>
+	<tbody>
+</table>
 
 ## 💡 灵感来源
 
@@ -131,10 +155,6 @@ bun run dev
 	<tbody>
 </table>
 
-## 📊 仓库状态
-
-![Alt](https://repobeats.axiom.co/api/embed/723bf3e4fe2c9d6422754b0a4165e08b565a91cb.svg "Repobeats analytics image")
-
 ## ⭐ Star 历史
 
-[![Star History Chart](https://api.star-history.com/svg?repos=sun0225SUN/podify&type=Date)](https://github.com/sun0225SUN/podify)
+[![Star History Chart](https://api.star-history.com/svg?repos=shutiao-org/shutiao-life&type=Date)](https://github.com/shutiao-org/shutiao-life)

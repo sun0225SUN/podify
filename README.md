@@ -32,7 +32,7 @@
 
 - https://shutiao.life
 
-> Welcome to add your website to the list https://github.com/sun0225SUN/podify/issues/1
+> Welcome to add your website to the list https://github.com/shutiao-org/shutiao-life/issues/1
 
 ## 🔨 Tech Stack
 
@@ -49,34 +49,32 @@
 - 🪝 Git hooks - [Lefthook](https://lefthook.dev)
 - 📊 Traffic Analysis - [Umami](https://umami.is)
 
-## 👥 Contributors
-
-<!-- readme: collaborators,contributors -start -->
-<table>
-	<tbody>
-		<tr>
-            <td align="center">
-                <a href="https://github.com/sun0225SUN">
-                    <img src="https://avatars.githubusercontent.com/u/79169717?v=4" width="100;" alt="sun0225SUN"/>
-                    <br />
-                    <sub><b>Guoqi Sun</b></sub>
-                </a>
-            </td>
-            <td align="center">
-                <a href="https://github.com/AirboZH">
-                    <img src="https://avatars.githubusercontent.com/u/50261327?v=4" width="100;" alt="AirboZH"/>
-                    <br />
-                    <sub><b>AirboZH</b></sub>
-                </a>
-            </td>
-		</tr>
-	<tbody>
-</table>
-<!-- readme: collaborators,contributors -end -->
-
 ## 🍭 Community
 
 - [Telegram](https://t.me/guoqisun)
+
+## 👥 Contributors
+
+<table>
+	<tbody>
+		<tr>
+        <td align="center">
+            <a href="https://github.com/sun0225SUN">
+                <img src="https://avatars.githubusercontent.com/u/79169717?v=4" width="100;" alt="sun0225SUN"/>
+                <br />
+                <sub><b>Guoqi Sun</b></sub>
+            </a>
+        </td>
+        <td align="center">
+            <a href="https://github.com/AirboZH">
+                <img src="https://avatars.githubusercontent.com/u/50261327?v=4" width="100;" alt="AirboZH"/>
+                <br />
+                <sub><b>AirboZH</b></sub>
+            </a>
+        </td>
+		</tr>
+	<tbody>
+</table>
 
 ## 💡 Inspired Projects
 
@@ -156,10 +154,6 @@ If you find this project helpful, please give it a ⭐️ on GitHub!
 	<tbody>
 </table>
 
-## 📊 Repository Status
-
-![Alt](https://repobeats.axiom.co/api/embed/723bf3e4fe2c9d6422754b0a4165e08b565a91cb.svg "Repobeats analytics image")
-
 ## ⭐ Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=sun0225SUN/podify&type=Date)](https://github.com/sun0225SUN/podify)
+[![Star History Chart](https://api.star-history.com/svg?repos=shutiao-org/shutiao-life&type=Date)](https://github.com/shutiao-org/shutiao-life)
